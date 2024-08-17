@@ -1,0 +1,14 @@
+package user
+
+import (
+	"github.com/TTLuke/messenger/model"
+	"github.com/TTLuke/messenger/view/components"
+	"github.com/TTLuke/messenger/view/layout"
+)
+
+templ Show(user model.User) {
+	@layout.Base() {
+		<h1>showing, { user.Email }</h1>
+		@components.Input(components.InputProps{Typ: "email", Name: "Lukas"})
+	}
+}
