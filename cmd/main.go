@@ -7,7 +7,7 @@ import (
 
 func main() {
 	app := echo.New()
-	userHandler := handler.UserHandler{}
-	app.GET("/user", userHandler.HandleUserShow)
+	homeHandler := handler.HomeHandler{}
+	app.GET("/", homeHandler.HandleHomeShow)
 	app.Start(":8080")
 }

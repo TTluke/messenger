@@ -1,11 +1,20 @@
 package layout
 
-templ Base() {
+import "github.com/TTLuke/messenger/view/components"
+
+templ Base(count int) {
 	<html>
-		<head></head>
+		<head>
+			<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+		</head>
 		<body>
-			BASE
-			{ children... }
+			<header>MESSENGER</header>
+			<section>
+				<nav>KONTAKTY</nav>
+			</section>
+			<article>
+				@components.Counter(count)
+			</article>
 		</body>
 	</html>
 }
