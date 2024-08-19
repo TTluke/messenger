@@ -1,20 +1,30 @@
 package layout
 
-import "github.com/TTLuke/messenger/view/components"
+import (
+"github.com/TTLuke/messenger/model"
+"github.com/TTLuke/messenger/view/components"
+)
 
-templ Base(count int) {
-	<html>
-		<head>
-			<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
-		</head>
-		<body>
-			<header>MESSENGER</header>
-			<section>
-				<nav>KONTAKTY</nav>
-			</section>
-			<article>
-				@components.Counter(count)
-			</article>
-		</body>
-	</html>
+templ Base(count int, user model.Contact) {
+<html>
+
+<head>
+	<script src="https://unpkg.com/htmx.org@2.0.2"
+		integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
+		crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<header>MESSENGER</header>
+	<section>
+		<nav>KONTAKTY</nav>
+	</section>
+	<article>
+		@components.Counter(count)
+		@components.Contact(user)
+		{ children... }
+	</article>
+</body>
+
+</html>
 }

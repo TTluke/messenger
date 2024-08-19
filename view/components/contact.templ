@@ -1,0 +1,13 @@
+package components
+
+import (
+"github.com/TTLuke/messenger/model"
+"strconv"
+)
+
+templ Contact(user model.Contact) {
+<h2>Kontakt: { strconv.Itoa(user.Id) }</h2>
+<p>
+	Meno: { user.FirstName } , Priezvysko { user.LastName }
+</p>
+}

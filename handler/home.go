@@ -12,5 +12,6 @@ var count model.Count
 
 func (h HomeHandler) HandleHomeShow(c echo.Context) error {
 	count.Count++
-	return render(c, layout.Base(count.Count))
+	user := model.Contact{Id: 1, FirstName: "Bar", LastName: "Foo"}
+	return render(c, layout.Base(count.Count, user))
 }
