@@ -8,6 +8,8 @@ import (
 func main() {
 	app := echo.New()
 	homeHandler := handler.HomeHandler{}
+	countHandler := handler.CounterHandler{}
 	app.GET("/", homeHandler.HandleHomeShow)
+	app.PUT("/add", countHandler.HandleCounterShow)
 	app.Start(":8080")
 }
