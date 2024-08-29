@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	// test
 	app := echo.New()
 	homeHandler := handler.HomeHandler{}
 	countHandler := handler.CounterHandler{}
