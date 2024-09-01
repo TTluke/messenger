@@ -6,11 +6,13 @@ import (
 )
 
 func main() {
-	// test
 	app := echo.New()
 	homeHandler := handler.HomeHandler{}
 	countHandler := handler.CounterHandler{}
+	contactHandler := handler.ContactHandler{}
+
 	app.GET("/", homeHandler.HandleHomeShow)
 	app.PUT("/add", countHandler.HandleCounterShow)
+	app.PUT("/contact", contactHandler.HandleContactShow)
 	app.Start(":8080")
 }

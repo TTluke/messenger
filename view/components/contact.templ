@@ -5,9 +5,9 @@ import (
 "strconv"
 )
 
-templ Contact(user model.Contact) {
-<h2>Kontakt: { strconv.Itoa(user.Id) }</h2>
+templ Contact(contact model.Contact) {
+<h2>Kontakt: { strconv.Itoa(contact.Id) }</h2>
 <p>
-	Meno: { user.FirstName } , Priezvysko { user.LastName }
+	Meno: { contact.FirstName } , Priezvysko { contact.LastName }
 </p>
 }
