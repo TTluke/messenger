@@ -13,6 +13,6 @@ func main() {
 
 	app.GET("/", homeHandler.HandleHomeShow)
 	app.PUT("/add", countHandler.HandleCounterShow)
-	app.PUT("/contact", contactHandler.HandleContactShow)
+	app.POST("/contact", contactHandler.HandleContactShow)
 	app.Start(":8080")
 }

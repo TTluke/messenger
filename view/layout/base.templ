@@ -1,28 +1,28 @@
 package layout
 
 templ Base() {
-<!DOCTYPE html>
-<html>
-
-<head>
-	<script src="https://unpkg.com/htmx.org@2.0.2"
-		integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
-		crossorigin="anonymous"></script>
-</head>
-
-<body>
-	<header>MESSENGER</header>
-	<section>
-		<nav>KONTAKTY</nav>
-	</section>
-	<article>
-		<button type="button" hx-put="/add" hx-target="#counter">ADD</button>
-		<button type="button" hx-put="/contact" hx-target="#contacts">SHOW CONTACT</button>
-		<div id="counter"></div>
-		<div id="contacts"></div>
-		{ children... }
-	</article>
-</body>
-
-</html>
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+		</head>
+		<body>
+			<header>MESSENGER</header>
+			<section>
+				<nav>KONTAKTY</nav>
+			</section>
+			<article>
+				<form hx-post="/contact" hx-target="#contacts">
+					<input type="text" name="id"/>
+					<input type="text" name="fname"/>
+					<input type="text" name="lname"/>
+					<button type="submit">SHOW CONTACT</button>
+				</form>
+				<button type="button" hx-put="/add" hx-target="#counter">ADD</button>
+				<div id="counter"></div>
+				<div id="contacts"></div>
+				{ children... }
+			</article>
+		</body>
+	</html>
 }
