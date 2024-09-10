@@ -10,6 +10,11 @@ func render(c echo.Context, component templ.Component) error {
 	return component.Render(c.Request().Context(), c.Response())
 }
 
-func delete_contact(slice []model.Contact, index int) []model.Contact {
-	return append(slice[:index], slice[index+1:]...)
+func delete_contact(slice []model.Contact, Id int) []model.Contact {
+	for ind, Contact := range slice {
+		if Contact.Id == Id {
+			return append(slice[:ind], slice[ind+1:]...)
+		}
+	}
+	return nil
 }

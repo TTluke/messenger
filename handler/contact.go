@@ -14,25 +14,30 @@ type ContactHandler struct{}
 
 var contacts []model.Contact
 
+func NewContact(Id int, FName, LName string) model.Contact {
+	return model.Contact{Id: Id, FirstName: FName, LastName: LName}
+}
+
 func (h ContactHandler) HandleAddContact(c echo.Context) error {
 	Id, err := strconv.Atoi(c.FormValue("id"))
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "ID must be integer")
 	}
-	Fname := c.FormValue("fname")
-	Lname := c.FormValue("lname")
-	contact := model.Contact{Id: Id, FirstName: Fname, LastName: Lname}
+	FName := c.FormValue("fname")
+	LName := c.FormValue("lname")
+	contacts = append(contacts, NewContact(Id, FName, LName))
 
-	contacts = append(contacts, contact)
-
-	for _, x := range contacts {
-		fmt.Printf("%d, %s, %s\n", x.Id, x.FirstName, x.LastName)
-	}
+	fmt.Printf("Contacts: %d\n", len(contacts))
 
 	return render(c, components.Contact(contacts))
 }
 
 func (h ContactHandler) HandleDeleteContact(c echo.Context) error {
-	delete_contact(contacts, 0)
+	Id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "Bad ID")
+	}
+	contacts = delete_contact(contacts, Id)
+	fmt.Printf("Deleted %d, contacts=%d\n", Id, len(contacts))
 	return nil
 }

@@ -14,6 +14,6 @@ func main() {
 	app.GET("/", homeHandler.HandleHomeShow)
 	app.PUT("/add", countHandler.HandleCounterShow)
 	app.POST("/contact", contactHandler.HandleAddContact)
-	app.DELETE("/delete", contactHandler.HandleDeleteContact)
+	app.DELETE("/delete/:id", contactHandler.HandleDeleteContact)
 	app.Start(":8080")
 }
