@@ -12,7 +12,7 @@ templ Base() {
 				<nav>KONTAKTY</nav>
 			</section>
 			<article>
-				<form hx-post="/contact" hx-target="#contacts">
+				<form hx-post="/contact" hx-target="#contacts" hx-swap="innerHTML">
 					<input type="text" name="id"/>
 					<input type="text" name="fname"/>
 					<input type="text" name="lname"/>

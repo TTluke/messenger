@@ -1,13 +1,18 @@
 package components
 
 import (
-"github.com/TTLuke/messenger/model"
-"strconv"
+	"github.com/TTLuke/messenger/model"
+	"strconv"
 )
 
-templ Contact(contact model.Contact) {
-<h2>Kontakt: { strconv.Itoa(contact.Id) }</h2>
-<p>
-	Meno: { contact.FirstName } , Priezvysko { contact.LastName }
-</p>
+templ Contact(Contacts []model.Contact) {
+	for _, contact := range Contacts {
+		<div id={ "contact-" + strconv.Itoa(contact.Id) }>
+			<h2>Kontakt: { strconv.Itoa(contact.Id) }</h2>
+			<p>
+				Meno: { contact.FirstName } , Priezvysko { contact.LastName }
+			</p>
+			<button type="submit" hx-delete="/delete" hx-swap="outerHTML" hx-target="closest div">X</button>
+		</div>
+	}
 }

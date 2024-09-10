@@ -26,7 +26,7 @@ func Base() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><script src=\"https://unpkg.com/htmx.org@2.0.2\" integrity=\"sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ\" crossorigin=\"anonymous\"></script></head><body><header>MESSENGER</header><section><nav>KONTAKTY</nav></section><article><form hx-post=\"/contact\" hx-target=\"#contacts\"><input type=\"text\" name=\"id\"> <input type=\"text\" name=\"fname\"> <input type=\"text\" name=\"lname\"> <button type=\"submit\">SHOW CONTACT</button></form><button type=\"button\" hx-put=\"/add\" hx-target=\"#counter\">ADD</button><div id=\"counter\"></div><div id=\"contacts\"></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><script src=\"https://unpkg.com/htmx.org@2.0.2\" integrity=\"sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ\" crossorigin=\"anonymous\"></script></head><body><header>MESSENGER</header><section><nav>KONTAKTY</nav></section><article><form hx-post=\"/contact\" hx-target=\"#contacts\" hx-swap=\"innerHTML\"><input type=\"text\" name=\"id\"> <input type=\"text\" name=\"fname\"> <input type=\"text\" name=\"lname\"> <button type=\"submit\">SHOW CONTACT</button></form><button type=\"button\" hx-put=\"/add\" hx-target=\"#counter\">ADD</button><div id=\"counter\"></div><div id=\"contacts\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
