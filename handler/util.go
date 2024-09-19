@@ -6,6 +6,7 @@ import (
 	"github.com/TTLuke/messenger/model"
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
+	_ "github.com/lib/pq"
 )
 
 func render(c echo.Context, component templ.Component) error {
@@ -21,7 +22,7 @@ func delete_contact(slice []model.Contact, Id int) []model.Contact {
 	return nil
 }
 
-func openDbConn() *sql.DB {
+func openDBConn() *sql.DB {
 	// Connect to the PostgreSQL database
 	connStr := "user=normal dbname=LinkUp password=2006 sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
@@ -29,4 +30,11 @@ func openDbConn() *sql.DB {
 		panic(err)
 	}
 	return db
+}
+
+func addUserToDB(db *sql.DB, name, email, password string) {
+	_, err := db.Exec("INSERT INTO users (name, mail, password) VALUES ($1, $2, $3)", name, email, password)
+	if err != nil {
+		panic(err)
+	}
 }
