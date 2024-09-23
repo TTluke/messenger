@@ -2,7 +2,7 @@ package layout
 
 import "github.com/TTLuke/messenger/view/components"
 
-templ Login() {
+templ Login(newUser bool) {
 	<!DOCTYPE html>
 	<head>
 		<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
@@ -10,7 +10,7 @@ templ Login() {
 	<body>
 		<header>LOGIN PAGE</header>
 		<section>
-			@components.LoginForm()
+			@components.LoginForm(newUser)
 		</section>
 		<footer></footer>
 	</body>

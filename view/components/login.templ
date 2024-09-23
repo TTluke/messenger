@@ -1,10 +1,15 @@
 package components
 
-templ LoginForm() {
+templ LoginForm(newUser bool) {
 	<div>
 		<form action="/login" method="post">
 			<h1>Sign in</h1>
 			<h2>**insert text**</h2>
+			if newUser == false {
+				<p style="color: red;">
+					User already in DB
+				</p>
+			}
 			<input type="text" name="name"/>
 			<input type="email" name="email"/>
 			<input type="password" name="password"/>

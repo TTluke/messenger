@@ -8,7 +8,7 @@ package components
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func LoginForm() templ.Component {
+func LoginForm(newUser bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -26,7 +26,17 @@ func LoginForm() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><form action=\"/login\" method=\"post\"><h1>Sign in</h1><h2>**insert text**</h2><input type=\"text\" name=\"name\"> <input type=\"email\" name=\"email\"> <input type=\"password\" name=\"password\"> <button type=\"submit\">Sign in</button></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><form action=\"/login\" method=\"post\"><h1>Sign in</h1><h2>**insert text**</h2>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if newUser == false {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p style=\"color: red;\">User already in DB</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"text\" name=\"name\"> <input type=\"email\" name=\"email\"> <input type=\"password\" name=\"password\"> <button type=\"submit\">Sign in</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -38,3 +38,11 @@ func addUserToDB(db *sql.DB, name, email, password string) {
 		panic(err)
 	}
 }
+
+func checkUserInDB(db *sql.DB, name string) bool {
+	err := db.QueryRow("SELECT name FROM users WHERE name=$1", name).Scan(&name)
+	if err != nil {
+		return true
+	}
+	return false
+}
