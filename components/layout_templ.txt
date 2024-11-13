@@ -1,0 +1,2 @@
+<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>The Spending Log Thingy</title><!--\n                This line is literally why we created the layout component.\n                Actually having a standard html thing is why, but yeah it's what it's!\n            --><link href=\"/static/css/tailwind.css\" rel=\"stylesheet\"></head><body>
+</body></html>
