@@ -1,11 +1,28 @@
 package components
 
-templ main() {
-	<main>
-		<button class="bg-pink-600 rounded-md">click me</button>
-	</main>
-}
-
 templ Index() {
 	@Layout(main())
+}
+
+templ main() {
+	<div class="min-h-screen flex flex-col">
+		<nav class="flex mx-4 my-4 h-20 space-x-4">
+			<div
+				class="shrink-0 items-center h-full w-20 rounded-md outline outline-[#443F64] outline-2 bg-[#332F4B] hover:w-64"
+			></div>
+			<div
+				class="flex items-center justify-center h-full w-full rounded-md outline outline-[#443F64] outline-2 bg-[#332F4B]"
+			>
+				@Contact(10, false)
+			</div>
+		</nav>
+		<div class="flex flex-1 mb-4">
+			<aside class="group mx-4 w-20 bg-[#332F4B] outline outline-2 outline-[#443F64] rounded-md hover:w-64">
+				for i := range 5 {
+					@Contact(i, true)
+				}
+			</aside>
+			<main class="flex-1 mr-4 bg-[#332F4B] outline outline-2 outline-[#443F64] rounded-md"></main>
+		</div>
+	</div>
 }

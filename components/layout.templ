@@ -5,8 +5,8 @@ templ Layout(children ...templ.Component) {
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset=" UTF-8" />
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
 	<title>The Spending Log Thingy</title>
 	<!--
                 This line is literally why we created the layout component.
@@ -15,7 +15,7 @@ templ Layout(children ...templ.Component) {
 	<link href="./static/css/tailwind.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="bg-[#262339]">
 	for _, child := range children {
 	@child
 	}
