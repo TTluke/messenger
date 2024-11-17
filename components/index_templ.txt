@@ -3,4 +3,4 @@
 </div><div class=\"hidden group-hover:flex\" hx-trigger=\"click\" hx-post=\"test\">
 </div></div><div id=\"current\" class=\"flex h-full w-full items-center justify-center rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]\">
 </div></nav><div class=\"mx-4 mb-4 flex flex-1 flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0\"><div id=\"side-menu\" class=\"group flex w-full flex-row rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64] md:w-[5.5rem] md:flex-col md:hover:w-64\">
-</div><main id=\"chat\" class=\"flex-1 rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]\"></main></div></div>
+</div><div id=\"chat\" class=\"flex flex-1 flex-col justify-end rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]\"><div class=\"m-4 h-16 w-auto rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]\"></div></div></div></div>
