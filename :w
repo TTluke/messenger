@@ -1,0 +1,11 @@
+package components
+
+import "fmt"
+
+templ Icon(path string, size int) {
+<div class={"flex w-[*size in rem*] h-20 justify-center items-center"} )>
+	<div class="flex w-16 h-16 rounded-full bg-[#FFF2FB] justify-center items-center overflow-hidden">
+		<img class="object-scale-down w-12 h-12" src={ path } />
+	</div>
+</div>
+}

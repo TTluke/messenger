@@ -2,15 +2,24 @@ package components
 
 import "strconv"
 
-templ Contact(num int, current bool) {
-<div class={ "flex h-20" , templ.KV("w-full", current), templ.KV("w-64",!current) }>
-	<div class="flex w-20 h-20 justify-center items-center">
-		<div class="flex w-16 h-16 rounded-full bg-[#FFF2FB] justify-center items-center overflow-hidden">
-			<img class="object-scale-down w-12 h-12" src="../static/png/man.png" />
-		</div>
+templ ListContact(num int) {
+<div class="flex h-20 w-20 rounded-md md:w-full hover:bg-[#443F64] z-10">
+	@Icon("../static/png/man.png")
+	<div class="hidden md:group-hover:block content-center items-center mx-4">
+		<h2 class="cursor-auto select-none text-center text-[#FFF2FB] text-xl font-bold">
+			contact { strconv.Itoa(num) }
+		</h2>
 	</div>
-	<div class={ "content-center items-center mx-4" , templ.KV("hidden group-hover:block", current) }>
-		<h2 class="text-center text-[#FFF2FB] text-xl font-bold">contact { strconv.Itoa(num) }</h2>
+</div>
+}
+
+templ CurrentContact(num int) {
+<div class="flex h-20 w-auto">
+	@Icon("../static/png/man.png")
+	<div class="content-center items-center mx-4">
+		<h2 class="cursor-auto select-none text-center text-[#FFF2FB] text-xl font-bold">
+			contact { strconv.Itoa(num) }
+		</h2>
 	</div>
 </div>
 }

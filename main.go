@@ -14,5 +14,4 @@ func main() {
 
 	app.GET("/", homeHandler.HandleHomeShow)
 	app.Start(":8080")
-
 }
