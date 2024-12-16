@@ -1,6 +1,12 @@
 package components
 
 templ Chat() {
-	<div id="chatbox" class="mx-4 mt-4 w-auto h-full rounded-md outline outline-2 outline-[#443F64]"></div>
+	<div id="chatbox" class="mx-4 mt-4 h-full w-auto rounded-md outline outline-2 outline-[#443F64]">
+		@UserMesage()
+	</div>
 	<div class="m-4 h-16 w-auto rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]"></div>
+}
+
+templ UserMesage() {
+	<div class="m-4 h-16 w-16 bg-[#443F64]"></div>
 }
