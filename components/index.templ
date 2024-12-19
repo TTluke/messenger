@@ -1,40 +1,33 @@
 package components
 
 templ Index() {
-@Layout(main())
+	@Layout(main())
 }
 
 templ main() {
-<div class="flex min-h-screen flex-col">
-  <nav class="mx-4 my-4 flex h-[5.5rem] space-x-4">
-    <div id="settings"
-      class="group flex h-full w-[5.5rem] shrink-0 content-center items-center justify-center rounded-full bg-[#332F4B] outline outline-2 outline-[#443F64] hover:w-44">
-      <div class="group-hover:hidden">
-        @Icon("../static/png/man.png")
-      </div>
-      <div class="hidden group-hover:flex">
-        @Icon("../static/png/settings.png")
-      </div>
-      <div class="hidden group-hover:flex" hx-trigger="click" hx-post="test">
-        @LogoutIcon()
-      </div>
-    </div>
-    <div id="current"
-      class="flex h-full w-full items-center justify-center rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]">
-      @CurrentContact(10)
-    </div>
-  </nav>
-  <div class="mx-4 mb-4 flex flex-1 flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
-    <div id="side-menu"
-      class="group flex w-full flex-row rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64] md:w-[5.5rem] md:flex-col md:hover:w-64">
-      for i := range 5 {
-      @ListContact(i)
-      }
-    </div>
-    //bg-[#332F4B]
-    <div id="chat" class="flex flex-1 flex-col justify-end rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]">
-      @Chat()
-    </div>
-  </div>
-</div>
+	<div id="container" class="flex min-h-screen min-w-full flex-col">
+		<nav class="m-4 flex h-24 w-auto flex-row space-x-4">
+			@Settings()
+			<div
+				id="current"
+				class="flex h-full w-full items-center justify-center rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]"
+			>
+				@CurrentContact(10)
+			</div>
+		</nav>
+		<div class="mx-4 mb-4 flex flex-1 flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+			<div
+				id="side-menu"
+				class="group flex w-full flex-row rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64] md:w-[5.5rem] md:flex-col md:hover:w-64"
+			>
+				for i := range 5 {
+					@ListContact(i)
+				}
+			</div>
+			//bg-[#332F4B]
+			<div id="chat" class="flex flex-1 flex-col justify-end rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]">
+				@Chat()
+			</div>
+		</div>
+	</div>
 }
