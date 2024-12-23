@@ -14,14 +14,19 @@ templ Chat() {
 				@UserMesage()
 			}
 		</div>
-		<div id="input-box" class="flex h-24 w-full shrink-0 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
-			<!-- Input elements go here -->
-			<input
-				type="text"
+		<div
+			id="input-box"
+			class="flex h-auto  min-h-24 w-full shrink-0 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]"
+		>
+			<!-- Textarea for input -->
+			<textarea
 				placeholder="Type your message..."
-				class="w-full rounded-lg bg-[#443F64] p-2 text-white outline-none"
-			/>
-			<button class="ml-2 rounded-lg bg-[#3476AD] px-4 py-2 text-white hover:bg-[#3881BC]">
+				class="w-full max-h-64 resize-none overflow-y-scroll rounded-lg bg-[#443F64] p-2 text-white outline-none"
+				rows="1"
+				oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"
+			></textarea>
+			<!-- Send button -->
+			<button class="ml-2 self-end h-16 rounded-lg bg-[#3476AD] px-4 py-2 text-white hover:bg-[#3881BC]">
 				Send
 			</button>
 		</div>
@@ -30,7 +35,7 @@ templ Chat() {
 
 templ ContactMesage() {
 	<div class="flex h-auto w-full flex-row">
-		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#443F64]">
+		<div id="message" class="m-4 px-2 py-1 h-fit w-auto max-w-[80%] rounded-lg bg-[#443F64]">
 			<p class="text-xl text-gray-50 m-1 break-words">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam
 				et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinar
@@ -54,7 +59,7 @@ templ ContactMesage() {
 templ UserMesage() {
 	<div class="flex h-auto w-full flex-row">
 		<div id="filler" class="h-full w-full"></div>
-		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#3476AD]">
+		<div id="message" class="m-4 px-2 py-1 h-fit w-auto max-w-[80%] rounded-lg bg-[#3476AD]">
 			<p class="text-xl text-gray-50 m-1 break-words">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque dignissim
 				scelerisque. Aliquam pulvinar ultrices egestas. Etiam pretium elit iaculis, mattis dui in, consectetur justo.
