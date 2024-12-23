@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./components/*.templ"],
   theme: {
-    extend: {},
+    extend: {
+      maxHeight: {
+        dvh: "100dvh", // Use the modern `dvh` unit for dynamic viewport height
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };

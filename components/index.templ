@@ -5,29 +5,29 @@ templ Index() {
 }
 
 templ main() {
-	<div id="container" class="flex min-h-screen min-w-full flex-col">
-		<nav class="m-4 flex h-24 w-auto flex-row space-x-4">
+	<div id="container" class="flex h-dvh w-screen flex-col">
+		<nav id="nav-container" class="m-4 flex h-24 w-auto flex-row space-x-4">
 			@Settings()
 			<div
-				id="current"
-				class="flex h-full w-full items-center justify-center rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]"
+				id="current-contact-container"
+				class="flex h-full w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]"
 			>
 				@CurrentContact(10)
 			</div>
 		</nav>
-		<div class="mx-4 mb-4 flex flex-1 flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+		<div
+			id="main-container"
+			class="mx-4 flex h-[calc(100dvh-9rem)] w-auto flex-grow-0 flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0"
+		>
 			<div
 				id="side-menu"
-				class="group flex w-full flex-row rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64] md:w-[5.5rem] md:flex-col md:hover:w-64"
+				class="group flex h-24 w-full flex-shrink-0 flex-row overflow-auto overflow-x-scroll rounded-lg bg-[#332F4B] pb-2 outline outline-1 outline-[#443F64] scrollbar-none scrollbar-track-[#332F4B] scrollbar-thumb-[#443F64] hover:scrollbar-thin lg:h-full lg:w-24 lg:flex-col lg:overflow-y-scroll lg:hover:w-64"
 			>
-				for i := range 5 {
+				for i := range 20 {
 					@ListContact(i)
 				}
 			</div>
-			//bg-[#332F4B]
-			<div id="chat" class="flex flex-1 flex-col justify-end rounded-md bg-[#332F4B] outline outline-2 outline-[#443F64]">
-				@Chat()
-			</div>
+			@Chat()
 		</div>
 	</div>
 }
