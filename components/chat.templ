@@ -7,21 +7,21 @@ templ Chat() {
 	>
 		<div
 			id="chat-box"
-			class="flex h-[calc(100%-6rem)] w-full flex-shrink-0 flex-grow-0 flex-col-reverse overflow-y-auto rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]"
+			class="flex h-[calc(100%-6rem)] w-full flex-col-reverse overflow-y-auto rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]"
 		>
 			for _ = range 20 {
 				@ContactMesage()
 				@UserMesage()
 			}
 		</div>
-		<div id="input-box" class="flex h-24 w-full rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
+		<div id="input-box" class="flex h-24 w-full shrink-0 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
 			<!-- Input elements go here -->
 			<input
 				type="text"
 				placeholder="Type your message..."
 				class="w-full rounded-lg bg-[#443F64] p-2 text-white outline-none"
 			/>
-			<button class="ml-2 rounded-lg bg-[#5A4FBF] px-4 py-2 text-white hover:bg-[#6A5FCF]">
+			<button class="ml-2 rounded-lg bg-[#3476AD] px-4 py-2 text-white hover:bg-[#3881BC]">
 				Send
 			</button>
 		</div>
@@ -30,8 +30,8 @@ templ Chat() {
 
 templ ContactMesage() {
 	<div class="flex h-auto w-full flex-row">
-		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-red-300">
-			<p class="m-1 break-words">
+		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#443F64]">
+			<p class="text-xl text-gray-50 m-1 break-words">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam
 				et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinar
 				at. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio,
@@ -54,8 +54,8 @@ templ ContactMesage() {
 templ UserMesage() {
 	<div class="flex h-auto w-full flex-row">
 		<div id="filler" class="h-full w-full"></div>
-		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-blue-300">
-			<p class="m-1 break-words">
+		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#3476AD]">
+			<p class="text-xl text-gray-50 m-1 break-words">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque dignissim
 				scelerisque. Aliquam pulvinar ultrices egestas. Etiam pretium elit iaculis, mattis dui in, consectetur justo.
 				Vivamus a nisi elementum, blandit.
