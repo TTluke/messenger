@@ -10,8 +10,11 @@ import (
 func main() {
 	app := echo.New()
 	app.Static("/static", "static")
+
 	homeHandler := handler.HomeHandler{}
+	messageHandler := handler.MessageHandler{}
 
 	app.GET("/", homeHandler.HandleHomeShow)
+	app.POST("/send", messageHandler.HandleSendMessage)
 	app.Start(":8080")
 }

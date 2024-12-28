@@ -21,12 +21,18 @@ templ Chat() {
 			<!-- Textarea for input -->
 			<textarea
 				placeholder="Type your message..."
-				class="w-full max-h-64 resize-none overflow-y-scroll rounded-lg bg-[#443F64] p-2 text-white outline-none"
+				class="max-h-64 w-full resize-none overflow-y-scroll rounded-lg bg-[#443F64] p-2 text-white outline-none"
 				rows="1"
 				oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"
 			></textarea>
 			<!-- Send button -->
-			<button class="ml-2 self-end h-16 rounded-lg bg-[#3476AD] px-4 py-2 text-white hover:bg-[#3881BC]">
+			<button
+				hx-post="/send"
+				hx-trigger="click"
+				hx-target="#chat-box"
+				hx-swap="afterbegin"
+				class="ml-2 h-16 self-end rounded-lg bg-[#3476AD] px-4 py-2 text-white hover:bg-[#3881BC]"
+			>
 				Send
 			</button>
 		</div>
@@ -35,8 +41,8 @@ templ Chat() {
 
 templ ContactMesage() {
 	<div class="flex h-auto w-full flex-row">
-		<div id="message" class="m-4 px-2 py-1 h-fit w-auto max-w-[80%] rounded-lg bg-[#443F64]">
-			<p class="text-xl text-gray-50 m-1 break-words">
+		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#443F64] px-2 py-1">
+			<p class="m-1 break-words text-xl text-gray-50">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam
 				et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinar
 				at. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio,
@@ -59,11 +65,11 @@ templ ContactMesage() {
 templ UserMesage() {
 	<div class="flex h-auto w-full flex-row">
 		<div id="filler" class="h-full w-full"></div>
-		<div id="message" class="m-4 px-2 py-1 h-fit w-auto max-w-[80%] rounded-lg bg-[#3476AD]">
-			<p class="text-xl text-gray-50 m-1 break-words">
+		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#3476AD] px-2 py-1">
+			<p class="m-1 break-words text-xl text-gray-50">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque dignissim
 				scelerisque. Aliquam pulvinar ultrices egestas. Etiam pretium elit iaculis, mattis dui in, consectetur justo.
-				Vivamus a nisi elementum, blandit.
+				d Vivamus a nisi elementum, blandit.
 			</p>
 		</div>
 	</div>
