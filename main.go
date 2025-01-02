@@ -16,6 +16,7 @@ func main() {
 
 	app.GET("/", homeHandler.HandleHomeShow)
 	app.GET("/login", homeHandler.HandleLoginShow)
+	app.GET("/register", homeHandler.HandleRegisterShow)
 	app.POST("/send", messageHandler.HandleSendMessage)
 	app.Start(":8080")
 }
