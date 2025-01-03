@@ -5,8 +5,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//go:generate npx tailwindcss build -i ./static/css/style.css -o ./static/css/tailwind.css
-
 func main() {
 	app := echo.New()
 	app.Static("/static", "static")
