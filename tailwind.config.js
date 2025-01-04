@@ -6,7 +6,14 @@ module.exports = {
       maxHeight: {
         dvh: "100dvh", // Use the modern `dvh` unit for dynamic viewport height
       },
+      outlineWidth: {
+        3: "3px",
+      },
     },
   },
-  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
+  plugins: [
+    require("tailwind-scrollbar")({ nocompatible: true }),
+    require("tailwindcss-animate"),
+    require("@tailwindcss/forms")
+  ],
 };

@@ -11,6 +11,10 @@ func (h HomeHandler) HandleHomeShow(c echo.Context) error {
 	return render(c, components.Layout(components.Main()))
 }
 
+func (h HomeHandler) HandleSettingsShow(c echo.Context) error {
+	return render(c, components.SettingsModal())
+}
+
 func (h HomeHandler) HandleLoginShow(c echo.Context) error {
 	return render(c, components.Layout(components.Login()))
 }

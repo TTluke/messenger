@@ -3,23 +3,23 @@ package components
 import "strconv"
 
 templ ListContact(num int) {
-<div class="z-10 flex h-auto w-auto items-center justify-center rounded-lg p-2 hover:bg-[#443F64] lg:w-full">
-  @Icon("../static/png/man.png")
-  <div class="mx-4 hidden content-center items-center lg:group-hover:block">
-    <h2 class="cursor-auto select-none text-center text-xl font-bold text-[#FFF2FB]">
-      contact { strconv.Itoa(num) }
-    </h2>
-  </div>
-</div>
+	<div class="z-10 flex h-auto w-auto items-center rounded-lg p-2 hover:bg-[#443F64] lg:w-full">
+		@Icon("../static/png/man.png")
+		<div class="mx-4 hidden h-full w-auto overflow-hidden content-center items-center lg:group-hover:flex">
+			<h2 class="cursor-auto select-none text-center text-nowrap text-xl font-bold text-[#FFF2FB]">
+				contact { strconv.Itoa(num) }
+			</h2>
+		</div>
+	</div>
 }
 
 templ CurrentContact(num int) {
-<div class="flex h-auto w-auto">
-  @Icon("../static/png/man.png")
-  <div class="mx-4 content-center items-center">
-    <h2 class="cursor-auto select-none text-center text-xl font-bold text-[#FFF2FB]">
-      contact { strconv.Itoa(num) }
-    </h2>
-  </div>
-</div>
+	<div class="flex h-auto w-auto">
+		@Icon("../static/png/man.png")
+		<div class="mx-4 content-center items-center">
+			<h2 class="cursor-auto select-none text-center text-xl font-bold text-[#FFF2FB]">
+				contact { strconv.Itoa(num) }
+			</h2>
+		</div>
+	</div>
 }
