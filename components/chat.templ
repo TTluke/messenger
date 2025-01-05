@@ -1,74 +1,21 @@
 package components
 
-templ Chat() {
-	<div
-		id="chat"
-		class="flex h-full max-h-[calc(100dvh-16rem)] w-full flex-col rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64] lg:max-h-[calc(100dvh-9rem)]"
-	>
-		<div
-			id="chat-box"
-			class="flex h-[calc(100%-6rem)] w-full flex-col-reverse overflow-y-auto rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]"
-		>
-			for _ = range 20 {
-				@ContactMesage()
-				@UserMesage()
-			}
-		</div>
-		<div
-			id="input-box"
-			class="flex h-auto min-h-24 w-full shrink-0 rounded-lg bg-[#332F4B] p-2 outline outline-2 outline-[#443F64]"
-		>
-			<textarea
-				placeholder="Type your message..."
-				class="max-h-64 w-full resize-none overflow-y-scroll rounded-lg bg-[#443F64] p-2 text-white outline-none"
-				rows="1"
-				oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"
-			></textarea>
-			<button
-				hx-post="/send"
-				hx-trigger="click"
-				hx-target="#chat-box"
-				hx-swap="afterbegin"
-				class="ml-2 h-16 self-end rounded-lg bg-[#3476AD] px-4 py-2 text-white hover:bg-[#3881BC]"
-			>
-				Send
-			</button>
-		</div>
-	</div>
+templ ContactMesage(text string) {
+<div class="flex w-full h-fit flex-none justify-start my-1">
+  <div class="w-fit max-w-[80%] h-fit bg-[#443F64] rounded-2xl px-2 py-1">
+    <p class="text-lg text-gray-50 text-pretty">
+       { text } 
+    </p>
+  </div> 
+</div>
 }
 
-templ ContactMesage() {
-	<div class="flex h-auto w-full flex-row">
-		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#443F64] px-2 py-1">
-			<p class="m-1 break-words text-xl text-gray-50">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam
-				et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinar
-				at. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio,
-				non vehicula ex pellentesque non. Vivamus non euismod dui, a maximus eros.
-				Etiam efficitur mattis vehicula. Proin placerat elit at auctor fringilla. Duis quis ultrices odio. Nullam vel
-				tortor eros. Curabitur fermentum mauris turpis, quis aliquam lacus malesuada sit amet. Duis malesuada convallis
-				vulputate. Duis sapien quam, fringilla ut orci nec, accumsan rhoncus leo. Pellentesque habitant morbi tristique
-				senectus et netus et malesuada fames ac turpis egestas. Nunc ornare at metus quis pretium. Integer neque dui,
-				finibus sit amet ligula dapibus, consectetur cursus sapien. Pellentesque sodales nulla ut magna posuere, quis
-				convallis libero facilisis. Donec tincidunt nunc in est vulputate semper. Maecenas quis faucibus mauris. Phasellus
-				vel erat condimentum, commodo nisi a, facilisis velit.
-				Praesent id vestibulum arcu. Aenean ac malesuada diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Maecenas et odio lorem. Aliquam nec viverra arcu. Mauris vel nunc vel lacus malesuada congue sit amet vitae orci.
-			</p>
-		</div>
-		<div id="filler" class="h-full w-full"></div>
-	</div>
-}
-
-templ UserMesage() {
-	<div class="flex h-auto w-full flex-row">
-		<div id="filler" class="h-full w-full"></div>
-		<div id="message" class="m-4 h-fit w-auto max-w-[80%] rounded-lg bg-[#3476AD] px-2 py-1">
-			<p class="m-1 break-words text-xl text-gray-50">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque dignissim
-				scelerisque. Aliquam pulvinar ultrices egestas. Etiam pretium elit iaculis, mattis dui in, consectetur justo.
-				d Vivamus a nisi elementum, blandit.
-			</p>
-		</div>
-	</div>
+templ UserMesage(text string) {
+<div class="flex w-full h-fit flex-none justify-end my-1">
+  <div class="w-fit max-w-[80%] h-fit bg-[#3476AD] rounded-2xl px-2 py-1">
+    <p class="text-lg text-gray-50 text-pretty">
+       { text } 
+    </p>
+  </div> 
+</div>
 }

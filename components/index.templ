@@ -1,27 +1,5 @@
 package components
 
-// templ Main() {
-// <div id="container" class="flex h-dvh w-screen flex-col">
-//   <nav id="nav-container" class="m-4 flex h-24 w-auto flex-row space-x-4">
-//     @Settings()
-//     <div id="current-contact-container"
-//       class="flex h-full w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
-//       @CurrentContact(10)
-//     </div>
-//   </nav>
-//   <div id="main-container"
-//     class="mx-4 flex h-[calc(100dvh-9rem)] w-auto flex-grow-0 flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
-//     <div id="side-menu"
-//       class="group transition-all ease-in duration-150 flex h-24 w-full flex-shrink-0 flex-row overflow-auto overflow-x-scroll rounded-lg bg-[#332F4B] pb-2 outline outline-1 outline-[#443F64] scrollbar-none scrollbar-track-[#332F4B] scrollbar-thumb-[#443F64] hover:scrollbar-thin lg:h-full lg:w-24 lg:flex-col lg:overflow-y-scroll lg:hover:w-64">
-//       for i := range 20 {
-//       @ListContact(i)
-//       }
-//     </div>
-//     @Chat()
-//   </div>
-// </div>
-// }
-
 templ Main() {
 <!-- TOP -->
 <div id="top-container" class="mt-2 h-16 w-full flex-shrink-0 px-2 py-1">
@@ -54,45 +32,62 @@ templ Main() {
   </div>
 </div>
 <!-- MAIN -->
-<div id="main-container" class="h-full w-full px-2 py-2">
-  <div id="chat" class="flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
+<div id="main-container" class="h-full max-h-[calc(100dvh-8.5rem)] w-full px-2 py-2">
+  <div id="chat" class="p-2 flex flex-col-reverse h-full w-full overflow-auto rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
+    @UserMesage("hello world")
+    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
+    @UserMesage("hello world")
+    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
+    @UserMesage("hello world")
+    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
+    @UserMesage("hello world")
+    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
   </div>
 </div>
 <!-- BOTTOM -->
-<div id="bottom-container" class="mb-4 h-16 w-full px-2 py-1">
-  <div id="user-input" class="flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
+<div id="bottom-container" class="mb-2 h-14 w-full flex-shrink-0 px-2 py-1">
+  <div id="bottom-bar" class="flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
   </div>
 </div>
 }
 
 templ SettingsModal() {
-<div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-35">
+<div id="modal"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 duration-300 animate-in fade-in">
   <!-- Content -->
-  <div class="mx-12 flex h-auto w-dvw max-w-screen-md rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
-    <!-- <p class="text-gray-400"> -->
-    <!--   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque suscipit massa eget justo malesuada vestibulum ut -->
-    <!--   at libero. Nullam at tortor semper, tincidunt diam tincidunt, lobortis leo. Morbi nunc arcu, tincidunt vel -->
-    <!--   dignissim nec, ornare ut metus. Etiam pharetra, purus ac semper tincidunt, enim urna tristique dui, non malesuada -->
-    <!--   metus. -->
-    <!-- </p> -->
-    <div class="flex flex-col space-y-4 w-full">
-      <div
-        class="flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]">
-        <p class="text-white">
-          theme
-        </p>
-      </div>
+  <div
+    class="mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
+    <div class="flex h-10 w-full">
+      <h2 class="text-gray-400">Settings</h2>
+      <div class="flex h-full flex-1">
 
-      <div class="flex h-10 w-full items-center justify-center rounded-lg bg-red-600 outline outline-4 outline-red-700">
-        <p class="text-white">
-          Logout
-        </p>
       </div>
+      <button class="flex text-gray-400 hover:text-gray-500" hx-delete="/delete" hx-target="#modal" hx-swap="outerHTML">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
-    <button class="flex text-gray-400 hover:text-gray-500" _="on click trigger closeModal">
-      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
+
+    <button
+      class="flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]">
+      <p class="text-white">
+        Change nickname
+      </p>
+    </button>
+
+    <button
+      class="flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]">
+      <p class="text-white">
+        Theme
+      </p>
+    </button>
+
+    <button
+      class="flex h-10 w-full items-center justify-center rounded-lg bg-red-600 outline outline-4 outline-red-700">
+      <p class="text-white">
+        Logout
+      </p>
     </button>
   </div>
   <!-- Click outside to close -->

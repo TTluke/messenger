@@ -14,6 +14,7 @@ module.exports = {
   plugins: [
     require("tailwind-scrollbar")({ nocompatible: true }),
     require("tailwindcss-animate"),
-    require("@tailwindcss/forms")
+    require("@tailwindcss/forms"),
+    require('@tailwindcss/container-queries'),
   ],
 };

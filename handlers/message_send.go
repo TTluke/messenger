@@ -9,5 +9,5 @@ type MessageHandler struct{}
 
 func (h MessageHandler) HandleSendMessage(c echo.Context) error {
 	//user := model.Contact{Id: 1, FirstName: "Bar", LastName: "Foo"}
-	return render(c, components.UserMesage())
+	return render(c, components.UserMesage(""))
 }
