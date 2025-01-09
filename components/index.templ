@@ -32,8 +32,8 @@ templ Main() {
   </div>
 </div>
 <!-- MAIN -->
-<div id="main-container" class="h-full max-h-[calc(100dvh-8.5rem)] w-full px-2 py-2">
-  <div id="chat" class="p-2 flex flex-col-reverse h-full w-full overflow-auto rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
+<div id="main-container" class="flex flex-col h-full max-h-[calc(100dvh-4.5rem)] w-full p-2">
+  <div id="chat" class="flex-grow p-2 flex flex-col-reverse h-full w-full overflow-auto rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
     @UserMesage("hello world")
     @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
     @UserMesage("hello world")
@@ -43,10 +43,11 @@ templ Main() {
     @UserMesage("hello world")
     @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
   </div>
-</div>
-<!-- BOTTOM -->
-<div id="bottom-container" class="mb-2 h-14 w-full flex-shrink-0 px-2 py-1">
-  <div id="bottom-bar" class="flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
+  <div class="flex flex-row">
+    <textarea placeholder="Type your message..."
+      class="max-h-32 w-full resize-none overflow-y-scroll rounded-lg bg-[#332F4B] p-2 mt-3 text-gray-50 outline outline-2 outline-[#443F64]"
+      rows="1" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
+    <button type="button" class="w-10 h-10 bg-red-500 self-end"></button>
   </div>
 </div>
 }
