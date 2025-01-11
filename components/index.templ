@@ -48,7 +48,7 @@ templ Main() {
       class="mt-3 max-h-20 w-full resize-none overflow-y-scroll rounded-lg bg-[#332F4B] p-2 text-gray-50 outline outline-2 outline-[#443F64]"
       rows="1" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
     <div class="ml-2 flex h-10 w-10 flex-shrink-0 items-center justify-center self-end">
-      <button type="button" class="flex h-8 w-8" hx-post="/send" hx-include="#input-area" hx-trigger="click"
+      <button type="button" class="flex h-8 w-8" hx-post="/send" hx-include="#input-area" hx-trigger="click, keydown[key=='Enter'] from:#input-area"
         hx-swap="afterbegin" hx-target="#chat" hx-on::after-request="const textarea = document.getElementById('input-area');
                   textarea.value = '';
                   textarea.style.height = '';

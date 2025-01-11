@@ -3,8 +3,8 @@ package components
 templ ContactMesage(text string) {
 <div class="flex w-full h-fit flex-none justify-start my-1">
   <div class="w-fit max-w-[80%] h-fit bg-[#443F64] rounded-2xl px-2 py-1">
-    <p class="text-lg text-gray-50 text-pretty">
-       { text } 
+    <p class="text-lg text-gray-50 break-words whitespace-pre-wrap overflow-wrap-anywhere">
+      { text }
     </p>
   </div> 
 </div>
@@ -13,9 +13,9 @@ templ ContactMesage(text string) {
 templ UserMesage(text string) {
 <div class="flex w-full h-fit flex-none justify-end my-1">
   <div class="w-fit max-w-[80%] h-fit bg-[#3476AD] rounded-2xl px-2 py-1">
-    <p class="text-lg text-gray-50 text-wrap">
-       { text } 
+    <p class="text-lg text-gray-50 break-words whitespace-pre-wrap overflow-wrap-anywhere">
+      { text }
     </p>
-  </div> 
+  </div>
 </div>
 }
