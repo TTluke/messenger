@@ -8,6 +8,7 @@ import (
 type MessageHandler struct{}
 
 func (h MessageHandler) HandleSendMessage(c echo.Context) error {
-	//user := model.Contact{Id: 1, FirstName: "Bar", LastName: "Foo"}
-	return render(c, components.UserMesage(""))
+	// message := c.FormValue("input-area")
+
+	return render(c, components.UserMesage(";akldjf;lkasdjf;laksjdf;lkajdf;lkadjf;alkdjfa;slkdjfasd;lkfj"))
 }

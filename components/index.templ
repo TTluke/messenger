@@ -6,25 +6,24 @@ templ Main() {
   <div id="top-bar" class="flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
     <!-- Contacts -->
     <div id="contacts" class="mx-1 flex h-full w-12 items-center justify-center">
-      <div id="arrow" class="h-10 w-10 rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
-      </div>
+      <button id="menu"
+        class="flex h-10 w-10 cursor-pointer flex-col items-center justify-center space-y-1 rounded-lg bg-[#332F4B]  outline outline-[#443F64]"
+        hx-get="/open-modal?content=contacts" hx-params="*" hx-target="body" hx-swap="beforeend">
+        <img class="h-8 w-8 object-scale-down" src="../static/png/contact_icon.png" />
+      </button>
     </div>
     <!-- Current Chat -->
     <div id="current-chat" class="flex h-full min-w-fit flex-1 items-center justify-center space-x-2 px-2">
-      <div id="icon" class="h-10 w-10 rounded-full outline bg-[#443F64] outline-2 outline-[#443F64]">
-			<img class="h-full w-full object-scale-down" src="../static/png/Linkup_logo.png"/>
+      <div id="icon" class="h-10 w-10 rounded-full bg-[#443F64] outline outline-2 outline-[#443F64]">
+        <img class="h-full w-full object-scale-down" src="../static/png/Linkup_logo.png" />
       </div>
       <p id="contact-name" class="text-gray-400">*name*</p>
     </div>
     <!-- Settings -->
-    <div id="settings" type="button"
-      class="mx-1 flex h-full w-12 items-center justify-center">
+    <div id="settings" type="button" class="mx-1 flex h-full w-12 items-center justify-center">
       <button id="menu"
         class="flex h-10 w-10 cursor-pointer flex-col items-center justify-center space-y-1 rounded-lg bg-[#332F4B]  outline outline-[#443F64]"
-        hx-get="/open-modal"
-        hx-target="body"
-        hx-swap="beforeend"
-        >
+        hx-get="/open-modal?content=settings" hx-target="body" hx-swap="beforeend">
         <span class="h-1 w-6 rounded bg-[#443F64]"></span>
         <span class="h-1 w-6 rounded bg-[#443F64]"></span>
         <span class="h-1 w-6 rounded bg-[#443F64]"></span>
@@ -42,21 +41,26 @@ templ Main() {
     @UserMesage("hello world")
     @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
     @UserMesage("hello world")
-    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
+    @UserMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
   </div>
   <div class="flex flex-row">
-    <textarea placeholder="Type your message..."
+    <textarea placeholder="Type your message..." id="input-area" name="input-area"
       class="mt-3 max-h-20 w-full resize-none overflow-y-scroll rounded-lg bg-[#332F4B] p-2 text-gray-50 outline outline-2 outline-[#443F64]"
       rows="1" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px';"></textarea>
-    <button type="button" class="flex h-10 w-10 flex-none self-end bg-red-500 ml-2"></button>
+    <div class="ml-2 flex h-10 w-10 flex-shrink-0 items-center justify-center self-end">
+      <button type="button" class="flex h-8 w-8" hx-post="/send" hx-include="#input-area" hx-trigger="click"
+        hx-swap="afterbegin" hx-target="#chat" hx-on::after-request="const textarea = document.getElementById('input-area');
+                  textarea.value = '';
+                  textarea.style.height = '';
+                  textarea.rows = 1;">
+        <img class="h-full w-full object-scale-down" src="../static/png/send_icon.png" />
+      </button>
+    </div>
   </div>
-</div>
+  </div>
 }
 
-templ SettingsModal() {
-<div id="modal"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 duration-300 animate-in fade-in">
-  <!-- Content -->
+templ SettingsContent() {
   <div
     class="mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
     <div class="flex h-10 w-full">
@@ -92,6 +96,24 @@ templ SettingsModal() {
       </p>
     </button>
   </div>
+}
+
+templ ContactsContent() {
+  <div
+    class="mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
+    <div class="flex h-10 w-full">
+      <h2 class="text-gray-400">Contacts</h2>
+      <div class="flex h-full flex-1">
+      </div>
+    </div>
+  </div>
+}
+
+templ Modal(content templ.Component) {
+<div id="modal"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 duration-300 animate-in fade-in">
+  <!-- Content -->
+  @content 
   <!-- Click outside to close -->
   <div class="fixed inset-0 -z-10" hx-delete="/delete" hx-target="#modal" hx-swap="outerHTML"></div>
 </div>
