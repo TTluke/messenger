@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"github.com/TTLuke/messenger/components"
@@ -9,6 +9,5 @@ type MessageHandler struct{}
 
 func (h MessageHandler) HandleSendMessage(c echo.Context) error {
 	message := c.FormValue("input-area")
-
 	return render(c, components.UserMesage(message))
 }

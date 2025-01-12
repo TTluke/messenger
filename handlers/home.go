@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 
 type HomeHandler struct{}
 
-func (h HomeHandler) HandleHomeShow(c echo.Context) error {
+func (h HomeHandler) handleHomeShow(c echo.Context) error {
 	return render(c, components.Layout(components.Main()))
 }
 
