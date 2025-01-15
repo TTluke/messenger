@@ -8,6 +8,7 @@ import (
 
 	"github.com/TTLuke/messenger/database"
 	"github.com/TTLuke/messenger/handlers"
+	"github.com/TTLuke/messenger/ws"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	_ "github.com/lib/pq"
@@ -33,24 +34,24 @@ func main() {
 		log.Fatal("Error - failed to connect to DB")
 	}
 
-	dbConn := dbConnection{
-		DB: database.New(conn),
-	}
+	hub := ws.NewHub()
+
+	renderHandler := handlers.NewRenderHandler(database.New(conn))
+	wsHandler := handlers.NewWSHandler(hub)
+	go hub.Run()
 
 	app := echo.New()
 	app.Static("/static", "static")
 
-	homeHandler := handlers.HomeHandler{}
-	messageHandler := handlers.MessageHandler{}
-	dbHandler := handlers.DbHandler{}
+	app.GET("/", renderHandler.HandleServeMain)
+	app.GET("/open-modal", renderHandler.HandleServeModal)
+	app.GET("/login", renderHandler.HandleServeLogin)
+	app.GET("/register", renderHandler.HandleServeRegister)
 
-	app.GET("/", homeHandler.handleHomeShow)
-	app.GET("/open-modal", homeHandler.HandleModalShow)
-	app.GET("/login", homeHandler.HandleLoginShow)
+	app.POST("/ws/create-room", wsHandler.CreateRoom)
+	app.POST("/send", renderHandler.HandleServeMessage)
+
 	app.DELETE("/delete", func(c echo.Context) error { return c.NoContent(http.StatusOK) })
-	app.GET("/register", homeHandler.HandleRegisterShow)
-	app.POST("/send", messageHandler.HandleSendMessage)
-	app.POST("/test", dbHandler.TestDbConn)
 
 	app.Start(":8080")
 }
