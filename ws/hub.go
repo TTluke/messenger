@@ -1,6 +1,10 @@
 package ws
 
-import "github.com/google/uuid"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type Room struct {
 	ID      uuid.UUID             `json:"id"`
@@ -32,6 +36,7 @@ func (h *Hub) Run() {
 				room := h.Rooms[client.RoomID]
 				if _, ok := room.Clients[client.ID]; !ok {
 					room.Clients[client.ID] = client
+					fmt.Printf("%v", room.Clients)
 				}
 			}
 		case client := <-h.Unregister:

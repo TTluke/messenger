@@ -51,10 +51,10 @@ func (h *WSHandler) JoinRoom(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}
-	// ws/join-room/:roomID?userID=uuid&userName=username
-	roomID, _ := uuid.Parse(c.Param("roomID"))
-	userID, _ := uuid.Parse(c.Param("userID"))
-	userName := c.QueryParam("userName")
+	// ws/join-room/:roomID?userID=uuid&username=username
+	roomID, _ := uuid.Parse(c.Param("room-id"))
+	userID, _ := uuid.Parse(c.QueryParam("userId"))
+	userName := c.QueryParam("username")
 
 	client := &ws.Client{
 		Conn:     conn,
@@ -63,7 +63,56 @@ func (h *WSHandler) JoinRoom(c echo.Context) error {
 		RoomID:   roomID,
 		Username: userName,
 	}
+	message := &ws.Message{
+		Content:  "user joined",
+		RoomID:   roomID,
+		Username: userName,
+	}
 
 	// register client into room
-	h.Hub.Register
+	h.Hub.Register <- client
+	h.Hub.Broadcast <- message
+
+	go client.WriteMessage()
+	client.ReadMessage(h.Hub)
+
+	return c.NoContent(http.StatusOK)
+}
+
+type RoomRes struct {
+	ID   uuid.UUID `json:"id"`
+	Name string    `json:"name"`
+}
+
+func (h *WSHandler) GetRooms(c echo.Context) error {
+	rooms := make([]RoomRes, 0)
+	for _, room := range h.Hub.Rooms {
+		rooms = append(rooms, RoomRes{
+			ID:   room.ID,
+			Name: room.Name,
+		})
+	}
+	return c.JSON(http.StatusOK, rooms)
+}
+
+type ClientRes struct {
+	ID       uuid.UUID `json:"id"`
+	Username string    `json:"username"`
+}
+
+func (h *WSHandler) GetClients(c echo.Context) error {
+	var clients []ClientRes
+	roomID, _ := uuid.Parse(c.Param("room-id"))
+
+	if _, ok := h.Hub.Rooms[roomID]; !ok {
+		clients = make([]ClientRes, 0)
+		return c.JSON(http.StatusOK, clients)
+	}
+	for _, client := range h.Hub.Rooms[roomID].Clients {
+		clients = append(clients, ClientRes{
+			ID:       client.ID,
+			Username: client.Username,
+		})
+	}
+	return c.JSON(http.StatusOK, clients)
 }

@@ -47,6 +47,9 @@ func main() {
 	app.GET("/open-modal", renderHandler.HandleServeModal)
 	app.GET("/login", renderHandler.HandleServeLogin)
 	app.GET("/register", renderHandler.HandleServeRegister)
+	app.GET("/ws/join-room/:room-id", wsHandler.JoinRoom)
+	app.GET("/ws/get-rooms", wsHandler.GetRooms)
+	app.GET("/ws/get-clients/:room-id", wsHandler.GetClients)
 
 	app.POST("/ws/create-room", wsHandler.CreateRoom)
 	app.POST("/send", renderHandler.HandleServeMessage)
