@@ -33,15 +33,8 @@ templ Main() {
 </div>
 <!-- MAIN -->
 <div id="main-container" class="flex h-full max-h-[calc(100dvh-4.5rem)] w-full flex-col p-2">
-  <div id="chat" class="flex h-full w-full flex-grow flex-col-reverse overflow-auto rounded-lg bg-[#332F4B] p-2 outline outline-2 outline-[#443F64]">
-    @UserMesage("hello world")
-    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
-    @UserMesage("hello world")
-    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
-    @UserMesage("hello world")
-    @ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
-    @UserMesage("hello world")
-    @UserMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio")
+  <div id="chat"
+    class="flex h-full w-full flex-grow flex-col-reverse overflow-auto rounded-lg bg-[#332F4B] p-2 outline outline-2 outline-[#443F64]">
   </div>
   <div class="flex flex-row">
     <textarea placeholder="Type your message..." id="input-area" name="input-area"
@@ -99,14 +92,59 @@ templ SettingsContent() {
 }
 
 templ ContactsContent() {
-  <div
-    class="mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
-    <div class="flex h-10 w-full">
-      <h2 class="text-gray-400">Contacts</h2>
-      <div class="flex h-full flex-1">
-      </div>
-    </div>
+<div
+  class="mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
+  <div class="flex h-10 w-full">
+    <h2 class="text-gray-400">Contacts</h2>
+    <div class="flex h-full flex-1"></div>
+    <button class="flex text-gray-400 hover:text-gray-500" hx-delete="/delete" hx-target="#modal" hx-swap="outerHTML">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
   </div>
+  @CurrentContact(1)
+  @CurrentContact(1)
+  @CurrentContact(1)
+  @CurrentContact(1)
+  @CurrentContact(1)
+  <hr class="mx-auto my-1 h-1 w-24 rounded border-0 bg-gray-500">
+<button 
+id="connectBtn"
+hx-ext="ws" hx-trigger="click" ws-connect="ws://localhost:8080/ws/join-room/550e8400-e29b-41d4-a716-446655440000?userId=3fa85f64-5717-4562-b3fc-2c963f66afa6&username=user"
+class="mx-auto flex h-10 w-[80%] items-center justify-center rounded-lg bg-[#332F4B] text-gray-500 outline outline-2 outline-[#443F64]">
+  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16M4 12h16" />
+  </svg>
+</button>
+<script>
+  document.addEventListener("htmx:wsOpen", (event) => {
+    console.log("WebSocket connection opened:", event.detail);
+  });
+
+  document.addEventListener("htmx:wsMessage", (event) => {
+    console.log("WebSocket message received:", event.detail);
+  });
+
+  document.addEventListener("htmx:wsClose", (event) => {
+    console.log("WebSocket connection closed:", event.detail);
+  });
+
+  document.addEventListener("htmx:wsError", (event) => {
+    console.error("WebSocket error:", event.detail);
+  });
+</script>
+<!-- <script> -->
+<!--   let socket; -->
+<!---->
+<!--   document.getElementById('connectBtn').addEventListener('click', () => { -->
+<!--     socket = new WebSocket("ws://localhost:8080/ws/join-room/550e8400-e29b-41d4-a716-446655440000?userId=3fa85f64-5717-4562-b3fc-2c963f66afa6&username=user"); -->
+<!--     socket.onopen = () => { -->
+<!--       console.log("WebSocket connection established."); -->
+<!--     }; -->
+<!--   }); -->
+<!-- </script> -->
+</div>
 }
 
 templ Modal(content templ.Component) {

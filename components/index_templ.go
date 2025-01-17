@@ -29,43 +29,7 @@ func Main() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- TOP --><div id=\"top-container\" class=\"mt-2 h-16 w-full flex-shrink-0 px-2 py-1\"><div id=\"top-bar\" class=\"flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]\"><!-- Contacts --><div id=\"contacts\" class=\"mx-1 flex h-full w-12 items-center justify-center\"><button id=\"menu\" class=\"flex h-10 w-10 cursor-pointer flex-col items-center justify-center space-y-1 rounded-lg bg-[#332F4B]  outline outline-[#443F64]\" hx-get=\"/open-modal?content=contacts\" hx-params=\"*\" hx-target=\"body\" hx-swap=\"beforeend\"><img class=\"h-8 w-8 object-scale-down\" src=\"../static/png/contact_icon.png\"></button></div><!-- Current Chat --><div id=\"current-chat\" class=\"flex h-full min-w-fit flex-1 items-center justify-center space-x-2 px-2\"><div id=\"icon\" class=\"h-10 w-10 rounded-full bg-[#443F64] outline outline-2 outline-[#443F64]\"><img class=\"h-full w-full object-scale-down\" src=\"../static/png/Linkup_logo.png\"></div><p id=\"contact-name\" class=\"text-gray-400\">*name*</p></div><!-- Settings --><div id=\"settings\" type=\"button\" class=\"mx-1 flex h-full w-12 items-center justify-center\"><button id=\"menu\" class=\"flex h-10 w-10 cursor-pointer flex-col items-center justify-center space-y-1 rounded-lg bg-[#332F4B]  outline outline-[#443F64]\" hx-get=\"/open-modal?content=settings\" hx-target=\"body\" hx-swap=\"beforeend\"><span class=\"h-1 w-6 rounded bg-[#443F64]\"></span> <span class=\"h-1 w-6 rounded bg-[#443F64]\"></span> <span class=\"h-1 w-6 rounded bg-[#443F64]\"></span></button></div></div></div><!-- MAIN --><div id=\"main-container\" class=\"flex h-full max-h-[calc(100dvh-4.5rem)] w-full flex-col p-2\"><div id=\"chat\" class=\"flex h-full w-full flex-grow flex-col-reverse overflow-auto rounded-lg bg-[#332F4B] p-2 outline outline-2 outline-[#443F64]\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = UserMesage("hello world").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = UserMesage("hello world").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = UserMesage("hello world").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = ContactMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = UserMesage("hello world").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = UserMesage("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut condimentum quam. Donec aliquet non diam et commodo. Cras vehicula leo volutpat feugiat viverra. Morbi hendrerit mollis metus, non aliquet nisl pulvinarat. Aliquam eros sapien, egestas vitae molestie id, porta a mi. Proin non ex risus. Nulla laoreet volutpat odio").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div><div class=\"flex flex-row\"><textarea placeholder=\"Type your message...\" id=\"input-area\" name=\"input-area\" class=\"mt-3 max-h-20 w-full resize-none overflow-y-scroll rounded-lg bg-[#332F4B] p-2 text-gray-50 outline outline-2 outline-[#443F64]\" rows=\"1\" oninput=\"this.style.height = &#39;&#39;; this.style.height = this.scrollHeight + &#39;px&#39;;\"></textarea><div class=\"ml-2 flex h-10 w-10 flex-shrink-0 items-center justify-center self-end\"><button type=\"button\" class=\"flex h-8 w-8\" hx-post=\"/send\" hx-include=\"#input-area\" hx-trigger=\"click, keydown[key==&#39;Enter&#39;] from:#input-area\" hx-swap=\"afterbegin\" hx-target=\"#chat\" hx-on::after-request=\"const textarea = document.getElementById(&#39;input-area&#39;);\n                  textarea.value = &#39;&#39;;\n                  textarea.style.height = &#39;&#39;;\n                  textarea.rows = 1;\"><img class=\"h-full w-full object-scale-down\" src=\"../static/png/send_icon.png\"></button></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- TOP --><div id=\"top-container\" class=\"mt-2 h-16 w-full flex-shrink-0 px-2 py-1\"><div id=\"top-bar\" class=\"flex h-full w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]\"><!-- Contacts --><div id=\"contacts\" class=\"mx-1 flex h-full w-12 items-center justify-center\"><button id=\"menu\" class=\"flex h-10 w-10 cursor-pointer flex-col items-center justify-center space-y-1 rounded-lg bg-[#332F4B]  outline outline-[#443F64]\" hx-get=\"/open-modal?content=contacts\" hx-params=\"*\" hx-target=\"body\" hx-swap=\"beforeend\"><img class=\"h-8 w-8 object-scale-down\" src=\"../static/png/contact_icon.png\"></button></div><!-- Current Chat --><div id=\"current-chat\" class=\"flex h-full min-w-fit flex-1 items-center justify-center space-x-2 px-2\"><div id=\"icon\" class=\"h-10 w-10 rounded-full bg-[#443F64] outline outline-2 outline-[#443F64]\"><img class=\"h-full w-full object-scale-down\" src=\"../static/png/Linkup_logo.png\"></div><p id=\"contact-name\" class=\"text-gray-400\">*name*</p></div><!-- Settings --><div id=\"settings\" type=\"button\" class=\"mx-1 flex h-full w-12 items-center justify-center\"><button id=\"menu\" class=\"flex h-10 w-10 cursor-pointer flex-col items-center justify-center space-y-1 rounded-lg bg-[#332F4B]  outline outline-[#443F64]\" hx-get=\"/open-modal?content=settings\" hx-target=\"body\" hx-swap=\"beforeend\"><span class=\"h-1 w-6 rounded bg-[#443F64]\"></span> <span class=\"h-1 w-6 rounded bg-[#443F64]\"></span> <span class=\"h-1 w-6 rounded bg-[#443F64]\"></span></button></div></div></div><!-- MAIN --><div id=\"main-container\" class=\"flex h-full max-h-[calc(100dvh-4.5rem)] w-full flex-col p-2\"><div id=\"chat\" class=\"flex h-full w-full flex-grow flex-col-reverse overflow-auto rounded-lg bg-[#332F4B] p-2 outline outline-2 outline-[#443F64]\"></div><div class=\"flex flex-row\"><textarea placeholder=\"Type your message...\" id=\"input-area\" name=\"input-area\" class=\"mt-3 max-h-20 w-full resize-none overflow-y-scroll rounded-lg bg-[#332F4B] p-2 text-gray-50 outline outline-2 outline-[#443F64]\" rows=\"1\" oninput=\"this.style.height = &#39;&#39;; this.style.height = this.scrollHeight + &#39;px&#39;;\"></textarea><div class=\"ml-2 flex h-10 w-10 flex-shrink-0 items-center justify-center self-end\"><button type=\"button\" class=\"flex h-8 w-8\" hx-post=\"/send\" hx-include=\"#input-area\" hx-trigger=\"click, keydown[key==&#39;Enter&#39;] from:#input-area\" hx-swap=\"afterbegin\" hx-target=\"#chat\" hx-on::after-request=\"const textarea = document.getElementById(&#39;input-area&#39;);\n                  textarea.value = &#39;&#39;;\n                  textarea.style.height = &#39;&#39;;\n                  textarea.rows = 1;\"><img class=\"h-full w-full object-scale-down\" src=\"../static/png/send_icon.png\"></button></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -94,7 +58,7 @@ func SettingsContent() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]\"><div class=\"flex h-10 w-full\"><h2 class=\"text-gray-400\">Settings</h2><div class=\"flex h-full flex-1\"></div><button class=\"flex text-gray-400 hover:text-gray-500\" hx-delete=\"/delete\" hx-target=\"#modal\" hx-swap=\"outerHTML\"><svg class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18L18 6M6 6l12 12\"></path></svg></button></div><button class=\"flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]\"><p class=\"text-white\">Change nickname</p></button> <button class=\"flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]\"><p class=\"text-white\">Theme</p></button> <button class=\"flex h-10 w-full items-center justify-center rounded-lg bg-red-600 outline outline-4 outline-red-700\"><p class=\"text-white\">Logout</p></button></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]\"><div class=\"flex h-10 w-full\"><h2 class=\"text-gray-400\">Settings</h2><div class=\"flex h-full flex-1\"></div><button class=\"flex text-gray-400 hover:text-gray-500\" hx-delete=\"/delete\" hx-target=\"#modal\" hx-swap=\"outerHTML\"><svg class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18L18 6M6 6l12 12\"></path></svg></button></div><button class=\"flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]\"><p class=\"text-white\">Change nickname</p></button> <button class=\"flex h-10 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-4 outline-[#443F64]\"><p class=\"text-white\">Theme</p></button> <button class=\"flex h-10 w-full items-center justify-center rounded-lg bg-red-600 outline outline-4 outline-red-700\"><p class=\"text-white\">Logout</p></button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -123,7 +87,31 @@ func ContactsContent() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]\"><div class=\"flex h-10 w-full\"><h2 class=\"text-gray-400\">Contacts</h2><div class=\"flex h-full flex-1\"></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]\"><div class=\"flex h-10 w-full\"><h2 class=\"text-gray-400\">Contacts</h2><div class=\"flex h-full flex-1\"></div><button class=\"flex text-gray-400 hover:text-gray-500\" hx-delete=\"/delete\" hx-target=\"#modal\" hx-swap=\"outerHTML\"><svg class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M6 18L18 6M6 6l12 12\"></path></svg></button></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CurrentContact(1).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CurrentContact(1).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CurrentContact(1).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CurrentContact(1).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = CurrentContact(1).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<hr class=\"mx-auto my-1 h-1 w-24 rounded border-0 bg-gray-500\"><button id=\"connectBtn\" hx-ext=\"ws\" hx-trigger=\"click\" ws-connect=\"ws://localhost:8080/ws/join-room/550e8400-e29b-41d4-a716-446655440000?userId=3fa85f64-5717-4562-b3fc-2c963f66afa6&amp;username=user\" class=\"mx-auto flex h-10 w-[80%] items-center justify-center rounded-lg bg-[#332F4B] text-gray-500 outline outline-2 outline-[#443F64]\"><svg class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4v16M4 12h16\"></path></svg></button><script>\n  document.addEventListener(\"htmx:wsOpen\", (event) => {\n    console.log(\"WebSocket connection opened:\", event.detail);\n  });\n\n  document.addEventListener(\"htmx:wsMessage\", (event) => {\n    console.log(\"WebSocket message received:\", event.detail);\n  });\n\n  document.addEventListener(\"htmx:wsClose\", (event) => {\n    console.log(\"WebSocket connection closed:\", event.detail);\n  });\n\n  document.addEventListener(\"htmx:wsError\", (event) => {\n    console.error(\"WebSocket error:\", event.detail);\n  });\n</script><!-- <script> --><!--   let socket; --><!----><!--   document.getElementById('connectBtn').addEventListener('click', () => { --><!--     socket = new WebSocket(\"ws://localhost:8080/ws/join-room/550e8400-e29b-41d4-a716-446655440000?userId=3fa85f64-5717-4562-b3fc-2c963f66afa6&username=user\"); --><!--     socket.onopen = () => { --><!--       console.log(\"WebSocket connection established.\"); --><!--     }; --><!--   }); --><!-- </script> --></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

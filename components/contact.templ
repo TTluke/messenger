@@ -1,25 +1,7 @@
 package components
 
-import "strconv"
-
-templ ListContact(num int) {
-	<div class="z-10 flex h-auto w-auto items-center rounded-lg p-2 hover:bg-[#443F64] lg:w-full">
-		@Icon("../static/png/man.png")
-		<div class="mx-4 hidden h-full w-auto overflow-hidden content-center items-center lg:group-hover:flex">
-			<h2 class="cursor-auto select-none text-center text-nowrap text-xl font-bold text-[#FFF2FB]">
-				contact { strconv.Itoa(num) }
-			</h2>
-		</div>
-	</div>
-}
-
 templ CurrentContact(num int) {
-	<div class="flex h-auto w-auto">
-		@Icon("../static/png/man.png")
-		<div class="mx-4 content-center items-center">
-			<h2 class="cursor-auto select-none text-center text-xl font-bold text-[#FFF2FB]">
-				contact { strconv.Itoa(num) }
-			</h2>
-		</div>
-	</div>
+    <button
+      class="flex h-14 w-full items-center justify-center rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
+    </button>
 }
