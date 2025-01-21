@@ -1,10 +1,17 @@
-
 import { useState } from 'react';
 import clsx from 'clsx';
-import { ContactCard } from "./contact-card";
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid'
+import { API_URL } from '@/constants';
+import { ContactCard } from "./contact-card";
 
-const AddButton = () => {
+type AddButtonProps = {
+  name: string;
+  setName: (value: string) => void;
+  submitHandler: (e: React.SyntheticEvent) => Promise<void>;
+}
+
+const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
   const [showInput, setShowInput] = useState(false);
 
   const handleButtonClick = () => {
@@ -19,7 +26,10 @@ const AddButton = () => {
           'w-10': showInput === true,
         },
       )}
-        onClick={handleButtonClick}>
+        onClick={(e) => {
+          handleButtonClick();
+          submitHandler(e);
+        }}>
 
         <div
           id="connectBtn"
@@ -46,6 +56,8 @@ const AddButton = () => {
             type="text"
             placeholder="Enter something"
             className="h-10 pl-3 w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         )
       }
@@ -53,13 +65,60 @@ const AddButton = () => {
   );
 };
 
-export default function Contacts({
-  contacts,
-  children,
-}: Readonly<{
-  contacts: { id: number; name: string; status: string }[];
-  children?: React.ReactNode;
-}>) {
+// { id: 1, name: "Alice", status: "away" },
+// { id: 2, name: "Bob", status: "offline" },
+// { id: 3, name: "Charlie", status: "away" },
+// { id: 4, name: "David", status: "away" },
+// { id: 5, name: "Eve", status: "online" },
+// { id: 6, name: "Frank", status: "offline" },
+// { id: 7, name: "Grace", status: "offline" },
+// { id: 8, name: "Hannah", status: "away" },
+// { id: 9, name: "Isaac", status: "away" },
+// { id: 10, name: "Jack", status: "offline" }
+export default function Contacts({ children, }: Readonly<{ children?: React.ReactNode; }>) {
+  const [contacts, setContacts] = useState<{ id: number, name: string, status: string }[]>([
+  ]);
+
+  const [name, setName] = useState('')
+
+  const getRooms = async () => {
+    try {
+      const res = await fetch(`${API_URL}/ws/get-rooms`, {
+        method: 'GET',
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        setContacts(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const submitHandler = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    try {
+      setName('')
+      const res = await fetch(`${API_URL}/ws/create-room`, {
+        method: `POST`,
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(
+          {
+            id: uuidv4(),
+            name: name
+          }
+        ),
+      })
+      if (res.ok) {
+        getRooms()
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className="h-full w-full flex flex-col">
       <div className="flex h-auto w-full items-center">
@@ -94,34 +153,7 @@ export default function Contacts({
       </div>
       {children}
       <hr className="mx-auto my-2 h-1 w-24 rounded border-0 bg-gray-500" />
-      <AddButton />
+      <AddButton name={name} setName={setName} submitHandler={submitHandler} />
     </div>
   );
 }
-
-// <div
-//   class="mx-12 flex h-auto w-dvw max-w-screen-md flex-col space-y-4 rounded-lg bg-[#332F4B] p-4 outline outline-2 outline-[#443F64]">
-//   <div class="flex h-10 w-full">
-//     <h2 class="text-gray-400">Contacts</h2>
-//     <div class="flex h-full flex-1"></div>
-//     <button class="flex text-gray-400 hover:text-gray-500" hx-delete="/delete" hx-target="#modal" hx-swap="outerHTML">
-//       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-//       </svg>
-//     </button>
-//   </div>
-//   @CurrentContact(1)
-//   @CurrentContact(1)
-//   @CurrentContact(1)
-//   @CurrentContact(1)
-//   @CurrentContact(1)
-//   <hr class="mx-auto my-1 h-1 w-24 rounded border-0 bg-gray-500">
-// <button 
-// id="connectBtn"
-// class="mx-auto flex h-10 w-[80%] items-center justify-center rounded-lg bg-[#332F4B] text-gray-500 outline outline-2 outline-[#443F64]">
-//   <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16M4 12h16" />
-//   </svg>
-// </button>
-// </div>
-// }

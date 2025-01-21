@@ -3,6 +3,7 @@ package main
 import (
 	// "database/sql"
 	"log"
+	"net/http"
 	// "net/http"
 	// "os"
 
@@ -11,6 +12,7 @@ import (
 	"github.com/TTLuke/messenger/ws"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	_ "github.com/lib/pq"
 )
 
@@ -41,6 +43,13 @@ func main() {
 	go hub.Run()
 
 	app := echo.New()
+	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete},
+		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowCredentials: true,
+	}))
+	// CORS middleware configuration
 	app.Static("/static", "static")
 
 	app.GET("/ws/join-room/:room-id", wsHandler.JoinRoom)

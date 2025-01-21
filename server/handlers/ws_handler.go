@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/TTLuke/messenger/ws"
@@ -25,6 +26,7 @@ type CreateRoomReq struct {
 }
 
 func (h *WSHandler) CreateRoom(c echo.Context) error {
+	fmt.Println("endpoint hit")
 	var req CreateRoomReq
 	if err := c.Bind(&req); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
