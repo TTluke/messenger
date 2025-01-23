@@ -28,7 +28,9 @@ const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
       )}
         onClick={(e) => {
           handleButtonClick();
-          submitHandler(e);
+          if (showInput === true) {
+            submitHandler(e);
+          }
         }}>
 
         <div
@@ -65,16 +67,6 @@ const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
   );
 };
 
-// { id: 1, name: "Alice", status: "away" },
-// { id: 2, name: "Bob", status: "offline" },
-// { id: 3, name: "Charlie", status: "away" },
-// { id: 4, name: "David", status: "away" },
-// { id: 5, name: "Eve", status: "online" },
-// { id: 6, name: "Frank", status: "offline" },
-// { id: 7, name: "Grace", status: "offline" },
-// { id: 8, name: "Hannah", status: "away" },
-// { id: 9, name: "Isaac", status: "away" },
-// { id: 10, name: "Jack", status: "offline" }
 export default function Contacts({ children, }: Readonly<{ children?: React.ReactNode; }>) {
   const [contacts, setContacts] = useState<{ id: number, name: string, status: string }[]>([
   ]);
