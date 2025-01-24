@@ -14,19 +14,6 @@ export function TopBar() {
   const showContacts = searchParams.get('contacts') === 'true';
   const showSettings = searchParams.get('settings') === 'true';
 
-  const contactData = [
-      { id: 1, name: "Alice", status: "away" },
-      { id: 2, name: "Bob", status: "offline" },
-      { id: 3, name: "Charlie", status: "away" },
-      { id: 4, name: "David", status: "away" },
-      { id: 5, name: "Eve", status: "online" },
-      { id: 6, name: "Frank", status: "offline" },
-      { id: 7, name: "Grace", status: "offline" },
-      { id: 8, name: "Hannah", status: "away" },
-      { id: 9, name: "Isaac", status: "away" },
-      { id: 10, name: "Jack", status: "offline" }
-  ];
-
   return (
     <div className="flex h-full w-full items-center rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]">
       <Button className="mx-2 h-10 w-10">
@@ -38,7 +25,7 @@ export function TopBar() {
             alt="contacts"
           />
         </Link>
-        {showContacts && <Modal><Contacts contacts={contactData}></Contacts></Modal>}
+        {showContacts && <Modal><Contacts></Contacts></Modal>}
       </Button>
 
       <CurrentContact text="Lukas (coolguy) Pollak some really fing long name" />

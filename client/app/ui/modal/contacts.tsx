@@ -1,4 +1,6 @@
-import { useState } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid'
@@ -68,7 +70,7 @@ const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
 };
 
 export default function Contacts({ children, }: Readonly<{ children?: React.ReactNode; }>) {
-  const [contacts, setContacts] = useState<{ id: number, name: string, status: string }[]>([
+  const [contacts, setContacts] = useState<{ id: string, name: string, status: string }[]>([
   ]);
 
   const [name, setName] = useState('')
@@ -87,6 +89,10 @@ export default function Contacts({ children, }: Readonly<{ children?: React.Reac
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    getRooms()
+  }, [])
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault()

@@ -1,3 +1,4 @@
+'use server';
 // app/page.tsx
 import { MainContent } from './ui/main_page/main-content';
 import { TopBar } from './ui/main_page/top-bar';

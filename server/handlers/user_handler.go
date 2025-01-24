@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -37,6 +38,8 @@ func (h *UserHandler) Login(c echo.Context) error {
 	if err := c.Bind(&usr); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
+
+	fmt.Printf("%v", usr)
 
 	u, err := h.Service.Login(c.Request().Context(), &usr)
 	if err != nil {
