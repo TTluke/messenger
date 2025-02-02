@@ -11,6 +11,7 @@ import Contacts from "../modal/contacts";
 
 export function TopBar() {
   const searchParams = useSearchParams();
+  const name = searchParams.get('name')
   const showContacts = searchParams.get('contacts') === 'true';
   const showSettings = searchParams.get('settings') === 'true';
 
@@ -28,7 +29,7 @@ export function TopBar() {
         {showContacts && <Modal><Contacts></Contacts></Modal>}
       </Button>
 
-      <CurrentContact text="Lukas (coolguy) Pollak some really fing long name" />
+      <CurrentContact text={name} />
 
       <Button className="mx-2 h-10 w-10 flex-col space-y-1">
         <Link href="/?settings=true" className="flex flex-col space-y-1 h-full w-full items-center justify-center">

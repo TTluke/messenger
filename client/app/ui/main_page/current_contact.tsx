@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 interface BouncingTextProps {
-  text: string;
+  text?: string;
   pixelsPerSecond?: number; // Speed in pixels per second
   className?: string;
 }
@@ -60,7 +60,7 @@ const BouncingText: React.FC<BouncingTextProps> = ({
           '--bounce-width': `${animationWidth}px`,
         } as React.CSSProperties}
       >
-        {text}
+        {text ? `${text}` : ""}
       </div>
       <style jsx>{`
         @keyframes bounceText {
