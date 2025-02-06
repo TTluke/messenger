@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState, useCallback, useEffect } from 'react';
 
 interface BouncingTextProps {
   text?: string;
@@ -9,41 +9,52 @@ interface BouncingTextProps {
 }
 
 const BouncingText: React.FC<BouncingTextProps> = ({
-  text,
-  pixelsPerSecond = 8, // Default speed: 10 pixels per second
-  className = ''
+  text = '',
+  pixelsPerSecond = 8,
+  className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const [animationWidth, setAnimationWidth] = useState(0);
+  const [overflowWidth, setOverflowWidth] = useState(0);
   const [animationDuration, setAnimationDuration] = useState(0);
 
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (containerRef.current && textRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        const textWidth = textRef.current.offsetWidth;
+  // Use useCallback to memoize the function and avoid unnecessary re-creations.
+  const checkOverflow = useCallback(() => {
+    if (containerRef.current && textRef.current) {
+      const containerWidth = containerRef.current.offsetWidth;
+      const textWidth = textRef.current.offsetWidth;
+      const extraMargin = 8;
+      const overflow = textWidth - containerWidth > extraMargin ? textWidth - containerWidth : 0;
+      
+      setIsOverflowing(overflow > 0);
+      setOverflowWidth(overflow);
+      
+      // Calculate duration based on distance and enforce a minimum duration of 2 seconds when overflowing
+      const duration = overflow / pixelsPerSecond;
+      setAnimationDuration(overflow > 0 && duration < 2 ? 2 : duration);
+    }
+  }, [pixelsPerSecond]);
 
-        const overflow: number = (textWidth - containerWidth) > 8 ? textWidth - containerWidth: 0;
-
-        setIsOverflowing(overflow > 0);
-        setAnimationWidth(overflow);
-
-        // Calculate duration based on the distance the text needs to travel
-        const totalDistance = overflow; // Text travels only the overflow distance
-        const durationInSeconds = (totalDistance / pixelsPerSecond) < 2 ? 2: totalDistance / pixelsPerSecond;
-        setAnimationDuration(durationInSeconds);
-      }
-    };
-
+  // Use useLayoutEffect to measure DOM sizes as soon as they are rendered
+  useLayoutEffect(() => {
     checkOverflow();
-    window.addEventListener('resize', checkOverflow);
+  }, [text, pixelsPerSecond, checkOverflow]);
 
-    return () => {
-      window.removeEventListener('resize', checkOverflow);
+  // Debounce resize events to avoid performance issues
+  useEffect(() => {
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(checkOverflow, 100);
     };
-  }, [text, pixelsPerSecond]);
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(resizeTimer);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [checkOverflow]);
 
   return (
     <div
@@ -52,26 +63,23 @@ const BouncingText: React.FC<BouncingTextProps> = ({
     >
       <div
         ref={textRef}
-        className={`${isOverflowing ? 'animate-bounce-text' : ''} inline-block`}
         style={{
-          animation: isOverflowing
-            ? `bounceText ${animationDuration}s linear infinite`
-            : 'none',
-          '--bounce-width': `${animationWidth}px`,
+          animation: isOverflowing ? `bounceText ${animationDuration}s linear infinite` : 'none',
+          '--bounce-width': `${overflowWidth}px`,
         } as React.CSSProperties}
       >
-        {text ? `${text}` : ""}
+        {text}
       </div>
       <style jsx>{`
         @keyframes bounceText {
           0% {
-            transform: translateX(4px); /* Start at the original position */
+            transform: translateX(4px);
           }
           50% {
-            transform: translateX(calc(-1 * var(--bounce-width) - 4px)); /* Move left by the overflow distance */
+            transform: translateX(calc(-1 * var(--bounce-width) - 4px));
           }
           100% {
-            transform: translateX(4px) /* Return to the original position */
+            transform: translateX(4px);
           }
         }
       `}</style>

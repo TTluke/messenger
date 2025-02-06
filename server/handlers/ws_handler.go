@@ -49,7 +49,7 @@ var upgrader = websocket.Upgrader{
 }
 
 func (h *WSHandler) JoinRoom(c echo.Context) error {
-	conn, err := upgrader.Upgrade(c.Response().Writer, c.Request(), nil)
+	conn, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}

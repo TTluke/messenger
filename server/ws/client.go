@@ -9,9 +9,9 @@ import (
 )
 
 type Message struct {
-	Username string
-	Content  string
-	RoomID   uuid.UUID
+	Username string    `json:"username"`
+	Content  string    `json:"content"`
+	RoomID   uuid.UUID `json:"roomId"`
 }
 
 type Client struct {
@@ -42,19 +42,19 @@ func (c *Client) ReadMessage(hub *Hub) {
 		c.Conn.Close()
 	}()
 	for {
-		_, message, err := c.Conn.ReadMessage()
+		_, data, err := c.Conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("error: %v", err)
-				break
 			}
-			message := &Message{
-				Content:  string(message),
-				RoomID:   c.RoomID,
-				Username: c.Username,
-			}
-			hub.Broadcast <- message
-			fmt.Printf("message read: %v\n", message)
+			break
 		}
+		message := &Message{
+			Content:  string(data),
+			RoomID:   c.RoomID,
+			Username: c.Username,
+		}
+		hub.Broadcast <- message
+		fmt.Printf("message read: %v\n", message)
 	}
 }
