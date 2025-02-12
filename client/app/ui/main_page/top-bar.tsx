@@ -29,7 +29,7 @@ export function TopBar() {
         {showContacts && <Modal><Contacts></Contacts></Modal>}
       </Button>
 
-      <BouncingText text={ name }></BouncingText>
+      <BouncingText text={ name ?? '' }></BouncingText>
 
       <Button className="mx-2 h-10 w-10 flex-col space-y-1">
         <Link href="/?settings=true" className="flex flex-col space-y-1 h-full w-full items-center justify-center">

@@ -1,6 +1,5 @@
 'use server';
-// app/page.tsx
-import { MainContent } from './ui/main_page/main-content';
+import ChatComponent from './ui/main_page/chat';
 import { TopBar } from './ui/main_page/top-bar';
 import { Suspense } from 'react';
 
@@ -16,7 +15,7 @@ export default async function MainPage() {
 
       <div className="flex h-screen max-h-[calc(100dvh-4.5rem)] w-full flex-col p-2">
         <Suspense fallback={<div>Loading chat...</div>}>
-          <MainContent />
+          <ChatComponent />
         </Suspense>
       </div>
     </div>
