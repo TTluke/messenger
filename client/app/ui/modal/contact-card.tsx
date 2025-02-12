@@ -1,6 +1,7 @@
+'use client';
+
 import { WS_URL } from '@/constants';
 import { useContext } from 'react';
-import { AuthContext } from '@/app/lib/auth_provider';
 import { WebsocketContext } from '@/app/lib/ws_provider';
 import Link from 'next/link';
 
@@ -11,16 +12,24 @@ interface ContactCardProps {
 };
 
 export function ContactCard({ id, name, status }: ContactCardProps) {
-  const {user} = useContext(AuthContext)
   const {setConn} = useContext(WebsocketContext)
 
-  const joinRoom = (roomId: string) => {
-    const ws = new WebSocket( `${WS_URL}/ws/join-room/${roomId}?userId=${user.id}&username=${user.username}` ) 
+const joinRoom = (roomId: string) => {
+  // Try to retrieve user data from local storage
+  const storedUser = localStorage.getItem('user_info');
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    const ws = new WebSocket(
+      `${WS_URL}/ws/join-room/${roomId}?userId=${user.id}&username=${user.username}`
+    );
+    ws.onopen = () => {
+      setConn(ws);
+    };
     console.log(ws)
-    if (ws.OPEN) {
-      setConn(ws)
-    }
+  } else {
+    console.warn("User data not available in local storage.");
   }
+};
   return (
     <Link
       href={`/?name=${name}`}

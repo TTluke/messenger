@@ -36,6 +36,11 @@ func (h *Hub) Run() {
 				room := h.Rooms[client.RoomID]
 				if _, ok := room.Clients[client.ID]; !ok {
 					room.Clients[client.ID] = client
+					h.Broadcast <- &Message{
+						Content:  fmt.Sprintf("user %v joined", client.Username),
+						RoomID:   client.RoomID,
+						Username: client.Username,
+					}
 				}
 			}
 		case client := <-h.Unregister:
@@ -43,7 +48,7 @@ func (h *Hub) Run() {
 				if _, ok := h.Rooms[client.RoomID].Clients[client.ID]; ok {
 					if len(h.Rooms[client.RoomID].Clients) != 0 {
 						h.Broadcast <- &Message{
-							Content:  "user left",
+							Content:  fmt.Sprintf("user %v left", client.Username),
 							RoomID:   client.RoomID,
 							Username: client.Username,
 						}
@@ -57,7 +62,7 @@ func (h *Hub) Run() {
 			if _, ok := h.Rooms[message.RoomID]; ok {
 				fmt.Printf("HUB: Did the message hace a roomID?: %v\n", ok)
 				for _, client := range h.Rooms[message.RoomID].Clients {
-					fmt.Printf("HUB: Writing to client: %v\n\n", client.Username)
+					fmt.Printf("HUB: Writing to client: %v\n", client.Username)
 					client.Message <- message
 				}
 			}

@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/google/uuid"
@@ -32,7 +31,6 @@ func (c *Client) WriteMessage() {
 			return
 		}
 		c.Conn.WriteJSON(message)
-		fmt.Printf("message writen: %v\n", message)
 	}
 }
 
@@ -55,6 +53,5 @@ func (c *Client) ReadMessage(hub *Hub) {
 			Username: c.Username,
 		}
 		hub.Broadcast <- message
-		fmt.Printf("message read: %v\n", message)
 	}
 }

@@ -1,27 +1,100 @@
 'use client';
 
-import { useState, useRef, ChangeEvent, KeyboardEvent, FC } from 'react';
+import { useState, useRef, ChangeEvent, KeyboardEvent, FC, useContext, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import Message from './message';
+import { WebsocketContext } from '@/app/lib/ws_provider';
+import { API_URL } from '@/constants';
+import { AuthContext } from '@/app/lib/auth_provider';
+
+export type MessageType = {
+  content: string;
+  client_id: string;
+  room_id: string;
+  username: string;
+  type: 'contact' | 'user';
+};
 
 const ChatComponent: FC = () => {
-  const [chatMessages, setChatMessages] = useState<string[]>([]);
+  const [chatMessages, setChatMessages] = useState<Array<MessageType>>([]);
   const [inputValue, setInputValue] = useState<string>('');
+  const [users, setUsers] = useState<Array<{ username: string }>>([]);
+  const { conn } = useContext(WebsocketContext);
+  const { user } = useContext(AuthContext);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!conn) {
+      router.push('/');
+      return;
+    }
+
+    const roomId = conn.url.split('/')[5];
+    async function getUsers() {
+      try {
+        const res = await fetch(`${API_URL}/ws/getClients/${roomId}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await res.json();
+        setUsers(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUsers();
+  }, [conn, router]);
+
+  useEffect(() => {
+    if (!conn) {
+      router.push('/');
+      return;
+    }
+
+    const handleMessage = (message: MessageEvent) => {
+      console.log('received message');
+      const m: MessageType = JSON.parse(message.data);
+
+      if (m.content === 'A new user has joined the room') {
+        setUsers((prevUsers) => [...prevUsers, { username: m.username }]);
+        return;
+      }
+
+      if (m.content === 'user left the chat') {
+        setUsers((prevUsers) => prevUsers.filter((u) => u.username !== m.username));
+        setChatMessages((prevMessages) => [...prevMessages, m]);
+        return;
+      }
+
+      m.type = user?.username === m.username ? 'user' : 'contact';
+      setChatMessages((prevMessages) => [...prevMessages, m]);
+    };
+
+    conn.onmessage = handleMessage;
+    conn.onclose = () => {};
+    conn.onerror = () => {};
+    conn.onopen = () => {};
+
+    // Cleanup event handlers on component unmount
+    return () => {
+      conn.onmessage = null;
+      conn.onclose = null;
+      conn.onerror = null;
+      conn.onopen = null;
+    };
+  }, [conn, router, user]);
 
   // Function to handle sending a message.
   const sendMessage = async () => {
-    if (!inputValue.trim()) return;
-
-    // For demonstration, we add the message locally.
-    // Replace with an API call if needed.
-    setChatMessages(prev => [inputValue, ...prev]);
-
-    // Clear and reset the textarea.
-    setInputValue('');
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+    if (!inputValue) return;
+    if (!conn) {
+      console.log('WS: No connection in chat');
+      return;
     }
+    conn.send(inputValue);
+    setInputValue('');
   };
 
   // Handle textarea input and adjust height.
@@ -46,10 +119,7 @@ const ChatComponent: FC = () => {
         className="flex h-full w-full flex-grow flex-col-reverse overflow-auto rounded-lg bg-[#332F4B] p-2 outline outline-2 outline-[#443F64]"
       >
         {chatMessages.map((msg, index) => (
-          <>
-            <Message key={index} type='contact' text={msg}></Message>
-            <Message key={index} type='user' text={msg}></Message>
-          </>
+          <Message key={index} message={msg} />
         ))}
       </div>
       <div className="flex flex-row">

@@ -37,6 +37,7 @@ export default function MainPage() {
           id: data.id,
         };
         console.log(user);
+        
         localStorage.setItem('user_info', JSON.stringify(user));
         router.push('/'); // Redirect to the home page
       }

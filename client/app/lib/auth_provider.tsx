@@ -41,6 +41,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
           username: user.username,
           id: user.id,
         });
+        console.log(user)
       }
       setAuthenticated(true);
     }

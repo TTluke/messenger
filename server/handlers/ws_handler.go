@@ -65,15 +65,8 @@ func (h *WSHandler) JoinRoom(c echo.Context) error {
 		RoomID:   roomID,
 		Username: userName,
 	}
-	message := &ws.Message{
-		Content:  "user joined",
-		RoomID:   roomID,
-		Username: userName,
-	}
-
 	// register client into room
 	h.Hub.Register <- client
-	h.Hub.Broadcast <- message
 
 	go client.WriteMessage()
 	client.ReadMessage(h.Hub)
@@ -116,5 +109,6 @@ func (h *WSHandler) GetClients(c echo.Context) error {
 			Username: client.Username,
 		})
 	}
+	fmt.Printf("%v", clients)
 	return c.JSON(http.StatusOK, clients)
 }
