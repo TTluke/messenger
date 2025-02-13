@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Message from './message';
 import { WebsocketContext } from '@/app/lib/ws_provider';
 import { API_URL } from '@/constants';
-import { AuthContext } from '@/app/lib/auth_provider';
+import { RoomContext } from '@/app/lib/room_provider';
 
 export type MessageType = {
   content: string;
@@ -21,9 +21,37 @@ const ChatComponent: FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [users, setUsers] = useState<Array<{ username: string }>>([]);
   const { conn } = useContext(WebsocketContext);
-  const { user } = useContext(AuthContext);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
+  const room = useContext(RoomContext)
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user_info'))
+    if (room) {
+      if (!conn) {
+        return;
+      }
+
+      const roomId = conn.url.split('/')[5];
+      async function getMessages() {
+        try {
+          const res = await fetch(`${API_URL}/ws/get-messages/${roomId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          const data = await res.json();
+          const processedMessages = data.map((m) => ({
+            ...m,
+            type: user?.username === m.username ? 'user' : 'contact',
+          }));
+          setChatMessages(processedMessages.reverse());
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      getMessages();
+    }
+  }, [room, conn])
 
   useEffect(() => {
     if (!conn) {
@@ -34,7 +62,7 @@ const ChatComponent: FC = () => {
     const roomId = conn.url.split('/')[5];
     async function getUsers() {
       try {
-        const res = await fetch(`${API_URL}/ws/getClients/${roomId}`, {
+        const res = await fetch(`${API_URL}/ws/get-clients/${roomId}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -54,8 +82,10 @@ const ChatComponent: FC = () => {
     }
 
     const handleMessage = (message: MessageEvent) => {
-      console.log('received message');
       const m: MessageType = JSON.parse(message.data);
+      const user = JSON.parse(localStorage.getItem('user_info'))
+      console.log(m.username);
+      console.log(user.username)
 
       if (m.content === 'A new user has joined the room') {
         setUsers((prevUsers) => [...prevUsers, { username: m.username }]);
@@ -69,13 +99,13 @@ const ChatComponent: FC = () => {
       }
 
       m.type = user?.username === m.username ? 'user' : 'contact';
-      setChatMessages((prevMessages) => [...prevMessages, m]);
+      setChatMessages((prevMessages) => [m, ...prevMessages]);
     };
 
     conn.onmessage = handleMessage;
-    conn.onclose = () => {};
-    conn.onerror = () => {};
-    conn.onopen = () => {};
+    conn.onclose = () => { };
+    conn.onerror = () => { };
+    conn.onopen = () => { };
 
     // Cleanup event handlers on component unmount
     return () => {
@@ -84,7 +114,7 @@ const ChatComponent: FC = () => {
       conn.onerror = null;
       conn.onopen = null;
     };
-  }, [conn, router, user]);
+  }, [conn, router]);
 
   // Function to handle sending a message.
   const sendMessage = async () => {

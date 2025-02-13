@@ -79,6 +79,24 @@ type RoomRes struct {
 	Name string    `json:"name"`
 }
 
+func (h *WSHandler) GetMessages(c echo.Context) error {
+	var messages []ws.Message
+	roomID, _ := uuid.Parse(c.Param("room-id"))
+
+	if _, ok := h.Hub.Rooms[roomID]; !ok {
+		messages = make([]ws.Message, 0)
+		return c.JSON(http.StatusOK, messages)
+	}
+	for _, msg := range h.Hub.Rooms[roomID].Messages {
+		messages = append(messages, ws.Message{
+			Username: msg.Username,
+			Content:  msg.Content,
+			RoomID:   msg.RoomID,
+		})
+	}
+	return c.JSON(http.StatusOK, messages)
+}
+
 func (h *WSHandler) GetRooms(c echo.Context) error {
 	rooms := make([]RoomRes, 0)
 	for _, room := range h.Hub.Rooms {

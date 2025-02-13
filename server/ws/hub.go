@@ -7,9 +7,10 @@ import (
 )
 
 type Room struct {
-	ID      uuid.UUID             `json:"id"`
-	Name    string                `json:"name"`
-	Clients map[uuid.UUID]*Client `json:"clients"`
+	ID       uuid.UUID             `json:"id"`
+	Name     string                `json:"name"`
+	Clients  map[uuid.UUID]*Client `json:"clients"`
+	Messages []*Message            `json:"messages"`
 }
 
 type Hub struct {
@@ -60,10 +61,12 @@ func (h *Hub) Run() {
 		case message := <-h.Broadcast:
 			fmt.Printf("HUB: A hub has received a message: %v\n", message)
 			if _, ok := h.Rooms[message.RoomID]; ok {
-				fmt.Printf("HUB: Did the message hace a roomID?: %v\n", ok)
+				h.Rooms[message.RoomID].Messages = append(h.Rooms[message.RoomID].Messages, message)
+				fmt.Printf("HUB: Messages writen: %v, to room: %v\n", message.Content, message.RoomID)
 				for _, client := range h.Rooms[message.RoomID].Clients {
 					fmt.Printf("HUB: Writing to client: %v\n", client.Username)
 					client.Message <- message
+
 				}
 			}
 		}
