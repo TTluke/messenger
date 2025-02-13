@@ -3,13 +3,15 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 
 interface ModalProps {
   children: React.ReactNode;
+  className: string;
   onClose?: () => void;
 }
 
-export default function Modal({ children, onClose }: ModalProps) {
+export default function Modal({ children, onClose, className }: ModalProps) {
   const router = useRouter();
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -87,7 +89,7 @@ export default function Modal({ children, onClose }: ModalProps) {
         ref={contentRef}
         className="relative z-50 overflow-auto"
       >
-        <div className='flex w-64 h-96 bg-[#332F4B] rounded-lg p-4'>
+        <div className={clsx('flex w-64 bg-[#332F4B] rounded-lg p-4', className)}>
           <Suspense fallback={
             <h1>loading</h1>
           }>

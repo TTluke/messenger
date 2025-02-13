@@ -8,6 +8,7 @@ import { Button } from "./button";
 import Modal from "../modal/modal";
 import Contacts from "../modal/contacts";
 import BouncingText from "./current_contact";
+import Settings from "../modal/settings";
 
 export function TopBar() {
   const searchParams = useSearchParams();
@@ -26,7 +27,7 @@ export function TopBar() {
             alt="contacts"
           />
         </Link>
-        {showContacts && <Modal><Contacts></Contacts></Modal>}
+        {showContacts && <Modal className="h-96"><Contacts></Contacts></Modal>}
       </Button>
 
       <BouncingText text={ name ?? '' }></BouncingText>
@@ -37,7 +38,7 @@ export function TopBar() {
           <span className="h-1 w-6 rounded bg-[#443F64]"></span>
           <span className="h-1 w-6 rounded bg-[#443F64]"></span>
         </Link>
-        {showSettings && <Modal><div></div></Modal>}
+        {showSettings && <Modal className=""><Settings /></Modal>}
       </Button>
     </div>
   );
