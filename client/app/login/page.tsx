@@ -19,7 +19,7 @@ export default function MainPage() {
       router.push("/")
       return 
     }
-  }, [authenticated])
+  }, [authenticated, router])
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();

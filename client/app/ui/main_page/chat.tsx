@@ -19,37 +19,40 @@ export type MessageType = {
 const ChatComponent: FC = () => {
   const [chatMessages, setChatMessages] = useState<Array<MessageType>>([]);
   const [inputValue, setInputValue] = useState<string>('');
-  const [users, setUsers] = useState<Array<{ username: string }>>([]);
+  const [, setUsers] = useState<Array<{ username: string }>>([]);
   const { conn } = useContext(WebsocketContext);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
   const room = useContext(RoomContext)
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user_info'))
-    if (room) {
-      if (!conn) {
-        return;
-      }
-
-      const roomId = conn.url.split('/')[5];
-      async function getMessages() {
-        try {
-          const res = await fetch(`${API_URL}/ws/get-messages/${roomId}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-          });
-          const data = await res.json();
-          const processedMessages = data.map((m) => ({
-            ...m,
-            type: user?.username === m.username ? 'user' : 'contact',
-          }));
-          setChatMessages(processedMessages.reverse());
-        } catch (error) {
-          console.error(error);
+    const userInfo = localStorage.getItem('user_info');
+    if (userInfo) {
+      const user = JSON.parse(userInfo);
+      if (room) {
+        if (!conn) {
+          return;
         }
+
+        const roomId = conn.url.split('/')[5];
+        async function getMessages() {
+          try {
+            const res = await fetch(`${API_URL}/ws/get-messages/${roomId}`, {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' },
+            });
+            const data = await res.json();
+            const processedMessages = data.map((m: MessageType) => ({
+              ...m,
+              type: user?.username === m.username ? 'user' : 'contact',
+            }));
+            setChatMessages(processedMessages.reverse());
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        getMessages();
       }
-      getMessages();
     }
   }, [room, conn])
 
@@ -83,23 +86,26 @@ const ChatComponent: FC = () => {
 
     const handleMessage = (message: MessageEvent) => {
       const m: MessageType = JSON.parse(message.data);
-      const user = JSON.parse(localStorage.getItem('user_info'))
-      console.log(m.username);
-      console.log(user.username)
+      const userInfo = localStorage.getItem('user_info');
+      if (userInfo) {
+        const user = JSON.parse(userInfo);
+        console.log(m.username);
+        console.log(user.username)
 
-      if (m.content === 'A new user has joined the room') {
-        setUsers((prevUsers) => [...prevUsers, { username: m.username }]);
-        return;
+        if (m.content === 'A new user has joined the room') {
+          setUsers((prevUsers) => [...prevUsers, { username: m.username }]);
+          return;
+        }
+
+        if (m.content === 'user left the chat') {
+          setUsers((prevUsers) => prevUsers.filter((u) => u.username !== m.username));
+          setChatMessages((prevMessages) => [...prevMessages, m]);
+          return;
+        }
+
+        m.type = user?.username === m.username ? 'user' : 'contact';
+        setChatMessages((prevMessages) => [m, ...prevMessages]);
       }
-
-      if (m.content === 'user left the chat') {
-        setUsers((prevUsers) => prevUsers.filter((u) => u.username !== m.username));
-        setChatMessages((prevMessages) => [...prevMessages, m]);
-        return;
-      }
-
-      m.type = user?.username === m.username ? 'user' : 'contact';
-      setChatMessages((prevMessages) => [m, ...prevMessages]);
     };
 
     conn.onmessage = handleMessage;

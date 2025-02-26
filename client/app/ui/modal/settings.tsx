@@ -31,7 +31,7 @@ export default function Settings({ children }: { children?: React.ReactNode }) {
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-auto w-full items-center">
-        <h2 className="text-gray-400">Settings</h2>
+        <h2 className="text-gray-400">Logout</h2>
         <div className="flex h-full flex-1"></div>
         <Link href='/'>
           <svg
