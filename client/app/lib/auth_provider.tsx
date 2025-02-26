@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, createContext, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Use the correct router import
+import { useRouter } from 'next/navigation';
 
 export type UserInfo = {
   username: string;
@@ -15,16 +15,16 @@ export const AuthContext = createContext<{
   setUser: (user: UserInfo) => void;
 }>({
   authenticated: false,
-  setAuthenticated: () => {},
+  setAuthenticated: () => { },
   user: { username: '', id: '' },
-  setUser: () => {},
+  setUser: () => { },
 });
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState<UserInfo>({ username: '', id: '' });
 
-  const router = useRouter(); // Use the updated router
+  const router = useRouter();
 
   useEffect(() => {
     const userInfo = localStorage.getItem('user_info');

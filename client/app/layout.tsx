@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/public/css/global.css"
 import AuthContextProvider from "./lib/auth_provider";
 import WebSocketProvider from "./lib/ws_provider";
-import { RoomProvider }  from "./lib/room_provider";
+import { RoomProvider } from "./lib/room_provider";
 import type { Viewport } from 'next'
 
 const geistSans = Geist({
@@ -25,23 +25,16 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false,
-  // Also supported but less commonly used
+  userScalable: true,
   interactiveWidget: 'resizes-content',
 }
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <AuthContextProvider>
       <WebSocketProvider>
         <RoomProvider>
-          <html lang="en">
-            <body
-              className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
+          <html>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
               {children}
             </body>
           </html>

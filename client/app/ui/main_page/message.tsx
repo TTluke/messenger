@@ -3,13 +3,11 @@
 import React from 'react';
 import { MessageType } from './chat';
 
-
 interface MessageBubbleProps {
   message: MessageType
 }
 
 const Message: React.FC<MessageBubbleProps> = ({ message }: MessageBubbleProps) => {
-  // Determine container alignment and bubble background based on message type.
   const containerClass =
     message.type === 'user'
       ? 'flex w-full h-fit flex-none justify-end my-1'

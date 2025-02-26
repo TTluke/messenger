@@ -25,26 +25,3 @@ export default function MainPage() {
     </div >
   );
 }
-
-// templ Register() {
-// <div id="container" class="flex h-dvh w-screen flex-col items-center justify-center align-middle">
-//   <div id="register-container"
-//     class="flex h-auto w-96 flex-col justify-center space-y-4 rounded-xl bg-[#332F4B] p-4 align-middle">
-//     <div id="user-input" class="flex flex-col space-y-4">
-//       <input placeholder="name" type="text" id="element"
-//         class="flex h-16 w-full rounded-xl bg-[#332F4B] pl-4 text-gray-50 placeholder-gray-400 outline outline-2 outline-[#443F64]" />
-//       <input placeholder="email" type="email" id="element"
-//         class="flex h-16 w-full rounded-xl bg-[#332F4B] pl-4 text-gray-50 placeholder-gray-400 outline outline-2 outline-[#443F64]" />
-//       <input placeholder="password" type="password" id="element"
-//         class="flex h-16 w-full rounded-xl bg-[#332F4B] pl-4 text-gray-50 placeholder-gray-400 outline outline-2 outline-[#443F64]" />
-//     </div>
-//     <a hx-get="/login" hx-target="#container" hx-swap="outerHTML"
-//       class="cursor-pointer self-start text-sm text-blue-400 hover:underline">Back to Login</a>
-//     <button type="button" class="flex h-16 w-full items-center justify-center rounded-xl bg-blue-600 align-middle">
-//       <p class="text-base font-semibold tracking-wide text-white">
-//         Register
-//       </p>
-//     </button>
-//   </div>
-// </div>
-// }

@@ -9,10 +9,8 @@ import { AuthContext, UserInfo } from '../lib/auth_provider'
 export default function MainPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const { authenticated } = useContext(AuthContext)
-
-  const router = useRouter(); // Use the useRouter hook
+  const router = useRouter();
 
   useEffect(() => {
     if (authenticated) {
@@ -36,10 +34,8 @@ export default function MainPage() {
           username: data.username,
           id: data.id,
         };
-        console.log(user);
-        
         localStorage.setItem('user_info', JSON.stringify(user));
-        router.push('/'); // Redirect to the home page
+        router.push('/');
       }
     } catch (err) {
       console.error(err);

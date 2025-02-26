@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-
 import { Button } from "./button";
 import Modal from "../modal/modal";
 import Contacts from "../modal/contacts";

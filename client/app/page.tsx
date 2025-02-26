@@ -3,7 +3,6 @@ import ChatComponent from './ui/main_page/chat';
 import { TopBar } from './ui/main_page/top-bar';
 import { Suspense } from 'react';
 
-// This is now a Server Component by default (no 'use client')
 export default async function MainPage() {
   return (
     <div>
@@ -12,7 +11,6 @@ export default async function MainPage() {
           <TopBar />
         </Suspense>
       </div>
-
       <div className="flex h-screen max-h-[calc(100dvh-4.5rem)] w-full flex-col p-2">
         <Suspense fallback={<div>Loading chat...</div>}>
           <ChatComponent />

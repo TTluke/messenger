@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useRef, useState, useCallback, useEffect } from
 
 interface BouncingTextProps {
   text?: string;
-  pixelsPerSecond?: number; // Speed in pixels per second
+  pixelsPerSecond?: number;
   className?: string;
 }
 
@@ -19,29 +19,22 @@ const BouncingText: React.FC<BouncingTextProps> = ({
   const [overflowWidth, setOverflowWidth] = useState(0);
   const [animationDuration, setAnimationDuration] = useState(0);
 
-  // Use useCallback to memoize the function and avoid unnecessary re-creations.
   const checkOverflow = useCallback(() => {
     if (containerRef.current && textRef.current) {
       const containerWidth = containerRef.current.offsetWidth;
       const textWidth = textRef.current.offsetWidth;
       const extraMargin = 8;
       const overflow = textWidth - containerWidth > extraMargin ? textWidth - containerWidth : 0;
-      
+      const duration = overflow / pixelsPerSecond;
+
       setIsOverflowing(overflow > 0);
       setOverflowWidth(overflow);
-      
-      // Calculate duration based on distance and enforce a minimum duration of 2 seconds when overflowing
-      const duration = overflow / pixelsPerSecond;
       setAnimationDuration(overflow > 0 && duration < 2 ? 2 : duration);
     }
   }, [pixelsPerSecond]);
 
-  // Use useLayoutEffect to measure DOM sizes as soon as they are rendered
-  useLayoutEffect(() => {
-    checkOverflow();
-  }, [text, pixelsPerSecond, checkOverflow]);
+  useLayoutEffect(() => {checkOverflow();}, [text, pixelsPerSecond, checkOverflow]);
 
-  // Debounce resize events to avoid performance issues
   useEffect(() => {
     let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {

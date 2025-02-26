@@ -1,11 +1,11 @@
 'use client';
 
+import { API_URL } from '@/constants';
 import { useState, useRef, ChangeEvent, KeyboardEvent, FC, useContext, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Message from './message';
 import { WebsocketContext } from '@/app/lib/ws_provider';
-import { API_URL } from '@/constants';
 import { RoomContext } from '@/app/lib/room_provider';
 
 export type MessageType = {
