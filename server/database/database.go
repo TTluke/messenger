@@ -26,6 +26,7 @@ func NewDatabase() *Database {
 	if err != nil {
 		log.Fatal("Error - failed to connect to DB")
 	}
+	log.Print("Database: Connected")
 
 	return &Database{DB: New(conn)}
 }

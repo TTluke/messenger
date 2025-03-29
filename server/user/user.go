@@ -9,7 +9,7 @@ import (
 type CreateUserReq struct {
 	Username string `json:"username" db:"username"`
 	Email    string `json:"email" db:"email"`
-	Password string `json:"password" db:"email"`
+	Password string `json:"password" db:"password"`
 }
 
 type CreateUserRes struct {

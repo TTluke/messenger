@@ -37,6 +37,7 @@ func main() {
 	}
 	origin := fmt.Sprintf("http://%s:3000", ip)
 	fmt.Printf(origin)
+
 	db := database.NewDatabase()
 	userSvc := user.NewService(db)
 	userHandler := handlers.NewUserHandler(userSvc)
@@ -48,7 +49,8 @@ func main() {
 	app := echo.New()
 	app.Static("/static", "static")
 	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://*:3000"},
+		AllowOrigins: []string{"http://*:3000"},
+		// AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete},
 		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 		AllowCredentials: true,

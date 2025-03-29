@@ -26,7 +26,7 @@ export function TopBar() {
             alt="contacts"
           />
         </Link>
-        {showContacts && <Modal className="h-96"><Contacts></Contacts></Modal>}
+        {showContacts && <Modal className="h-auto"><Contacts></Contacts></Modal>}
       </Button>
 
       <BouncingText text={ name ?? '' }></BouncingText>

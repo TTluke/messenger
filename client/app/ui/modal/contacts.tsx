@@ -16,29 +16,28 @@ type AddButtonProps = {
 const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
   const [showInput, setShowInput] = useState(false);
 
-  const handleButtonClick = () => {
-    setShowInput(!showInput); // Toggle input visibility
+  const handleButtonClick = (e: React.SyntheticEvent) => {
+    if (showInput) {
+      submitHandler(e);
+      setShowInput(false);
+    } else {
+      setShowInput(true);
+    }
   };
 
   return (
     <div className="flex items-center space-x-3">
-      <div className={clsx("mx-auto flex shrink-0 h-10 items-center justify-center rounded-lg bg-[#332F4B] text-gray-500 outline outline-2 outline-[#443F64]",
-        {
-          'w-[80%]': showInput === false,
-          'w-10': showInput === true,
-        },
-      )}
-        onClick={(e) => {
-          handleButtonClick();
-          if (showInput === true) {
-            submitHandler(e);
+      <div
+        className={clsx(
+          "mx-auto flex shrink-0 h-10 items-center justify-center rounded-lg bg-[#332F4B] text-gray-500 outline outline-2 outline-[#443F64]",
+          {
+            'w-[80%]': !showInput,
+            'w-10': showInput,
           }
-        }}>
-
-        <div
-          id="connectBtn"
-          className="flex items-center justify-center"
-        >
+        )}
+        onClick={(e) => handleButtonClick(e)}
+      >
+        <div id="connectBtn" className="flex items-center justify-center">
           <svg
             className="h-6 w-6"
             fill="none"
@@ -54,73 +53,83 @@ const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
           </svg>
         </div>
       </div>
-      {
-        showInput && (
+      {showInput && (
+        <form
+          className="w-full"
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitHandler(e);
+            setShowInput(false);
+          }}
+        >
           <input
             type="text"
             placeholder="Enter something"
             className="h-10 pl-3 w-full rounded-lg bg-[#332F4B] outline outline-2 outline-[#443F64]"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            // This handler works on both desktop and mobile when pressing the Enter/Done button.
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                submitHandler(e);
+                setShowInput(false);
+              }
+            }}
           />
-        )
-      }
-    </div >
+        </form>
+      )}
+    </div>
   );
 };
 
-export default function Contacts({ children, }: Readonly<{ children?: React.ReactNode; }>) {
-  const [contacts, setContacts] = useState<{ id: string, name: string, status: string }[]>([
-  ]);
-
+export default function Contacts({ children }: Readonly<{ children?: React.ReactNode; }>) {
+  const [contacts, setContacts] = useState<{ id: string, name: string, status: string }[]>([]);
   const [name, setName] = useState('')
 
   const getRooms = async () => {
     try {
       const res = await fetch(`${API_URL}/ws/get-rooms`, {
         method: 'GET',
-      })
-
-      const data = await res.json()
+      });
+      const data = await res.json();
       if (res.ok) {
-        setContacts(data)
+        setContacts(data);
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
-    getRooms()
-  }, [])
+    getRooms();
+  }, []);
 
   const submitHandler = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      setName('')
+      setName('');
       const res = await fetch(`${API_URL}/ws/create-room`, {
-        method: `POST`,
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(
-          {
-            id: uuidv4(),
-            name: name
-          }
-        ),
-      })
+        body: JSON.stringify({
+          id: uuidv4(),
+          name: name
+        }),
+      });
       if (res.ok) {
-        getRooms()
+        getRooms();
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="h-auto w-full flex flex-col">
       <div className="flex h-auto w-full items-center">
-        <h2 className="text-gray-400">Contacts</h2>
+        <h2 className="text-gray-400">Rooms</h2>
         <div className="flex h-full flex-1"></div>
         <Link href='/'>
           <svg
@@ -139,7 +148,7 @@ export default function Contacts({ children, }: Readonly<{ children?: React.Reac
         </Link>
       </div>
       <hr className="mx-auto my-2 h-px w-full rounded border-0 bg-gray-400" />
-      <div className="flex flex-col w-full h-full grow-0 space-y-2 overflow-auto">
+      <div className="flex flex-col w-full h-auto max-h-32 grow-0 space-y-2 overflow-auto">
         {contacts.map((contact) => (
           <ContactCard
             key={contact.id}

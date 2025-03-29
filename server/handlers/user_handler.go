@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -27,6 +28,7 @@ func (h *UserHandler) CreateUser(c echo.Context) error {
 
 	res, err := h.Service.CreateUser(c.Request().Context(), &u)
 	if err != nil {
+		log.Print(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
