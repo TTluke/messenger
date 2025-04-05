@@ -9,6 +9,7 @@ import (
 type Room struct {
 	ID       uuid.UUID             `json:"id"`
 	Name     string                `json:"name"`
+	Password string                `json:"password"`
 	Clients  map[uuid.UUID]*Client `json:"clients"`
 	Messages []*Message            `json:"messages"`
 }

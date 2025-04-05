@@ -34,6 +34,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <WebSocketProvider>
         <RoomProvider>
           <html>
+            <head>
+              <script
+                crossOrigin="anonymous"
+                src="//unpkg.com/react-scan/dist/auto.global.js"
+              />
+            </head>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
               {children}
             </body>

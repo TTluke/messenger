@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/TTLuke/messenger/utils"
 	"github.com/TTLuke/messenger/ws"
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
@@ -21,22 +22,37 @@ func NewWSHandler(h *ws.Hub) *WSHandler {
 }
 
 type CreateRoomReq struct {
-	ID   uuid.UUID `json:"id"`
-	Name string    `json:"name"`
+	ID       uuid.UUID `json:"id"`
+	Name     string    `json:"name"`
+	Password string    `json:"password"`
 }
 
 func (h *WSHandler) CreateRoom(c echo.Context) error {
-	fmt.Println("endpoint hit")
 	var req CreateRoomReq
 	if err := c.Bind(&req); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
 
-	h.Hub.Rooms[req.ID] = &ws.Room{
-		ID:      req.ID,
-		Name:    req.Name,
-		Clients: make(map[uuid.UUID]*ws.Client),
+	if req.Password == "" {
+		h.Hub.Rooms[req.ID] = &ws.Room{
+			ID:       req.ID,
+			Name:     req.Name,
+			Password: "",
+			Clients:  make(map[uuid.UUID]*ws.Client),
+		}
+	} else {
+		pass, err := utils.HashPassword(req.Password)
+		if err != nil {
+			return c.String(http.StatusInternalServerError, err.Error())
+		}
+		h.Hub.Rooms[req.ID] = &ws.Room{
+			ID:       req.ID,
+			Name:     req.Name,
+			Password: pass,
+			Clients:  make(map[uuid.UUID]*ws.Client),
+		}
 	}
+
 	return c.JSON(http.StatusOK, req)
 }
 
@@ -74,11 +90,6 @@ func (h *WSHandler) JoinRoom(c echo.Context) error {
 	return c.NoContent(http.StatusOK)
 }
 
-type RoomRes struct {
-	ID   uuid.UUID `json:"id"`
-	Name string    `json:"name"`
-}
-
 func (h *WSHandler) GetMessages(c echo.Context) error {
 	var messages []ws.Message
 	roomID, _ := uuid.Parse(c.Param("room-id"))
@@ -97,12 +108,19 @@ func (h *WSHandler) GetMessages(c echo.Context) error {
 	return c.JSON(http.StatusOK, messages)
 }
 
+type RoomRes struct {
+	ID       uuid.UUID `json:"id"`
+	Name     string    `json:"name"`
+	Password string    `json:"password"`
+}
+
 func (h *WSHandler) GetRooms(c echo.Context) error {
 	rooms := make([]RoomRes, 0)
 	for _, room := range h.Hub.Rooms {
 		rooms = append(rooms, RoomRes{
-			ID:   room.ID,
-			Name: room.Name,
+			ID:       room.ID,
+			Name:     room.Name,
+			Password: room.Password,
 		})
 	}
 	return c.JSON(http.StatusOK, rooms)
