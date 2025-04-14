@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import { WebsocketContext } from '@/app/lib/ws_provider';
 import { RoomContext } from '@/app/lib/room_provider';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 interface ContactCardProps {
@@ -65,9 +66,18 @@ export function ContactCard({ id, name, password }: ContactCardProps) {
     >
       <span>{name}</span>
       <div className="flex flex-1"></div>
-      {password && <div
-        className="w-2.5 h-2.5 bg-red-500 rounded-sm flex-shrink-0"
-      ></div>}
+      {password &&
+        <div className='items-center'>
+          <Image
+            src="/lock.png"
+            width={32}
+            height={32}
+            alt="contacts"
+            className='w-5 h-5'
+          />
+        </div>
+      }
+
     </Link>
   );
 } 
