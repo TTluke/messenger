@@ -34,7 +34,12 @@ const ChatComponent: FC = () => {
           return;
         }
 
-        const roomId = conn.url.split('/')[5];
+        const parsedUrl = new URL(conn.url);
+
+        const params: URLSearchParams = parsedUrl.searchParams;
+
+        const roomId: string | null = params.get("room_id");
+
         async function getMessages() {
           try {
             const res = await fetch(`${API_URL}/ws/get-messages/${roomId}`, {
@@ -62,7 +67,12 @@ const ChatComponent: FC = () => {
       return;
     }
 
-    const roomId = conn.url.split('/')[5];
+    const parsedUrl = new URL(conn.url);
+
+    const params: URLSearchParams = parsedUrl.searchParams;
+
+    const roomId: string | null = params.get("room_id");
+
     async function getUsers() {
       try {
         const res = await fetch(`${API_URL}/ws/get-clients/${roomId}`, {
@@ -109,7 +119,7 @@ const ChatComponent: FC = () => {
     };
 
     conn.onmessage = handleMessage;
-    conn.onclose = () => { };
+    conn.onclose = () => setChatMessages([]);
     conn.onerror = () => { };
     conn.onopen = () => { };
 

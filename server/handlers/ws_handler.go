@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/TTLuke/messenger/utils"
@@ -64,22 +65,40 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
+type JoinRoomReq struct {
+	RoomId       uuid.UUID `query:"room_id"`
+	UserId       uuid.UUID `query:"user_id"`
+	UserName     string    `query:"user_name"`
+	RoomPassword string    `query:"room_password"`
+}
+
 func (h *WSHandler) JoinRoom(c echo.Context) error {
+	// log.Print("endpoint: join-room, hit")
+	var req JoinRoomReq
+	if err := c.Bind(&req); err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+
+	log.Printf("%v\n", req)
+
+	if h.Hub.Rooms[req.RoomId].Password != "" {
+		log.Printf("entered: %v, checked: %v", req.RoomPassword, h.Hub.Rooms[req.RoomId].Password)
+		if err := utils.CheckPassword(req.RoomPassword, h.Hub.Rooms[req.RoomId].Password); err != nil {
+			return c.String(http.StatusUnauthorized, "wrong room password")
+		}
+	}
+
 	conn, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}
-	// ws/join-room/:roomID?userID=uuid&username=username
-	roomID, _ := uuid.Parse(c.Param("room-id"))
-	userID, _ := uuid.Parse(c.QueryParam("userId"))
-	userName := c.QueryParam("username")
 
 	client := &ws.Client{
 		Conn:     conn,
 		Message:  make(chan *ws.Message, 10),
-		ID:       userID,
-		RoomID:   roomID,
-		Username: userName,
+		ID:       req.UserId,
+		RoomID:   req.RoomId,
+		Username: req.UserName,
 	}
 	// register client into room
 	h.Hub.Register <- client

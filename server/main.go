@@ -49,14 +49,13 @@ func main() {
 	app := echo.New()
 	app.Static("/static", "static")
 	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://*:3000"},
-		// AllowOrigins:     []string{"*"},
+		AllowOrigins:     []string{"http://*:3000"},
 		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete},
 		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 		AllowCredentials: true,
 	}))
 
-	app.GET("/ws/join-room/:room-id", wsHandler.JoinRoom)
+	app.GET("/ws/join-room/", wsHandler.JoinRoom)
 	app.GET("/ws/get-rooms", wsHandler.GetRooms)
 	app.GET("/ws/get-clients/:room-id", wsHandler.GetClients)
 	app.GET("/ws/get-messages/:room-id", wsHandler.GetMessages)

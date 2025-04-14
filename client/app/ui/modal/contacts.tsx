@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { WebsocketContext } from '@/app/lib/ws_provider';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid'
@@ -84,8 +85,9 @@ const AddButton = ({ name, setName, submitHandler }: AddButtonProps) => {
 };
 
 export default function Contacts({ children }: Readonly<{ children?: React.ReactNode; }>) {
-  const [contacts, setContacts] = useState<{ id: string, name: string, status: string }[]>([]);
+  const [contacts, setContacts] = useState<{ id: string, name: string, password: string }[]>([]);
   const [name, setName] = useState('')
+  const { conn, setConn } = useContext(WebsocketContext);
 
   const getRooms = async () => {
     try {
@@ -102,6 +104,11 @@ export default function Contacts({ children }: Readonly<{ children?: React.React
   };
 
   useEffect(() => {
+
+    // If there is an active connection, close it.
+    if (conn) {
+      conn.close();
+    }
     getRooms();
   }, []);
 
@@ -149,14 +156,18 @@ export default function Contacts({ children }: Readonly<{ children?: React.React
       </div>
       <hr className="mx-auto my-2 h-px w-full rounded border-0 bg-gray-400" />
       <div className="flex flex-col w-full h-auto max-h-32 grow-0 space-y-2 overflow-auto">
-        {contacts.map((contact) => (
-          <ContactCard
-            key={contact.id}
-            id={contact.id}
-            name={contact.name}
-            status={contact.status}
-          />
-        ))}
+        {contacts
+          .slice() // 1. Create a shallow copy of the contacts array
+          .sort((a, b) => a.id.localeCompare(b.id)) // 2. Sort the copy based on the 'id' property (string comparison)
+          .map((contact) => ( // 3. Map over the *sorted* array
+            <ContactCard
+              key={contact.id} // Key should still be unique, id is good here
+              id={contact.id}
+              name={contact.name}
+              password={contact.password}
+            />
+          ))
+        }
       </div>
       {children}
       <hr className="mx-auto my-2 h-1 w-24 rounded border-0 bg-gray-500" />
